@@ -1,0 +1,12 @@
+{
+  "name": "apartyment_app",
+  "displayName": "apartyment_app",
+  "expo": {
+    "name": "apartyment_app",
+    "slug": "apartyment_app",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
