@@ -1,15 +1,20 @@
 import * as React from "react";
-import { StyleSheet, Text, Button, View } from "react-native";
+import { StyleSheet, Text, Button, View, SafeAreaView } from "react-native";
+import Buildings from "../resources/svg/buildings.js";
 
 const Login = ({ navigation }) => {
   return (
-    <View style={styles.loginWrapper}>
-      <Button
-        style={styles.loginButton}
-        title="LOGIN"
-        onPress={() => navigation.navigate("Hub")}
-      />
-    </View>
+    <SafeAreaView style={styles.loginWrapper}>
+      <Text style={styles.headerText}>APARTYMENT</Text>
+      <Buildings style={styles.buildings} />
+      <View style={styles.loginForm}>
+        <Button
+          style={styles.loginButton}
+          title="LOGIN"
+          onPress={() => navigation.navigate("Hub")}
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -18,13 +23,22 @@ const Login = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   loginWrapper: {
+    justifyContent: "space-between",
+    alignItems: "center",
     marginTop: 100,
   },
 
-  loginButton: {
-    width: 24,
-    height: 16,
+  headerText: {
+    color: "#F72585",
   },
+
+  buildings: {
+    padding: 50,
+  },
+
+  loginForm: { height: 50, color: "#2119AB" },
+
+  loginButton: { color: "#F72585" },
 });
 
 export default Login;
