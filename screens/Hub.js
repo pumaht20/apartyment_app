@@ -17,7 +17,7 @@ const Hub = () => {
   }, []);
   return (
     <View style={{ alignItems: "center", marginTop: 100 }}>
-      <Text>This is in the hub!</Text>
+      <Text>Hello from hub</Text>
     </View>
   );
 };
