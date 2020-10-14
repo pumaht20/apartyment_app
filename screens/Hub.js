@@ -15,7 +15,11 @@ const Hub = () => {
   useEffect(() => {
     getData();
   }, []);
-  return <Text>This is in the hub</Text>;
+  return (
+    <View style={{ alignItems: "center", marginTop: 100 }}>
+      <Text>This is in the hub!</Text>
+    </View>
+  );
 };
 
 export default Hub;
