@@ -5,8 +5,8 @@ export default function SvgComponent(props) {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
-      width="219.688"
-      height="117.904"
+      width="300"
+      height="150"
       viewBox="0 0 219.688 117.904"
     >
       <G id="undraw_quite_town_mg2q" transform="translate(0 -0.36)">

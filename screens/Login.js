@@ -48,7 +48,17 @@ const Login = ({ navigation }) => {
           value={passwordValue}
         />
         <View style={styles.buttonWrapper}>
-          <Button title="Sign In" color="#F72585" />
+          <Button
+            title="Sign In"
+            color="#F72585"
+            onPress={() => navigation.navigate("Hub")}
+          />
+        </View>
+        <View
+          style={styles.signUpView}
+          onStartShouldSetResponder={() => navigation.navigate("SignUp")}
+        >
+          <Text style={styles.signUpText}>Sign Up</Text>
         </View>
       </View>
     </SafeAreaView>
@@ -65,14 +75,15 @@ const styles = StyleSheet.create({
   },
 
   headerView: {
-    marginTop: 100,
     flex: 1,
+    paddingTop: 50,
   },
   imageView: {
     flex: 2,
   },
   formView: {
-    flex: 3,
+    flex: 2,
+    flexDirection: "column",
   },
 
   headerText: {
@@ -94,6 +105,15 @@ const styles = StyleSheet.create({
 
   buttonWrapper: {
     marginTop: 10,
+  },
+
+  signUpView: {
+    alignSelf: "flex-end",
+    marginTop: 20,
+  },
+
+  signUpText: {
+    color: "#F72585",
   },
 });
 
