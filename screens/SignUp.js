@@ -26,18 +26,24 @@ const SignUp = ({ navigation }) => {
     Jost_600SemiBold,
   });
 
+  const [emailTitle, setEmailTitle] = React.useState("Email address");
+  const [emailTitleColor, setEmailTitleColor] = React.useState("#000000");
+  const [emailInputBorder, setEmailInputBorder] = React.useState("#EFEFEF");
+
   const onSubmitUser = () => {
     APIRegisterUser(
-      nameValue,
       emailValue,
+      nameValue,
       phonenumberValue,
-      passwordValue,
-      passwordConfirmValue
+      passwordValue
     ).then((res) => {
       if (res.status === 201) {
         navigation.navigate("Hub");
       } else if (res.status === 409) {
         console.log("User with that email already exists.");
+        setEmailTitle("This email is already registered!");
+        setEmailTitleColor("#FF3E3E");
+        setEmailInputBorder("#FF3E3E");
       }
     });
   };
@@ -63,11 +69,16 @@ const SignUp = ({ navigation }) => {
             onChangeText={(text) => onChangeTextName(text)}
             value={nameValue}
           />
-          <Text style={styles.formTitle}>Email address</Text>
+          <Text
+            style={{ fontFamily: "Jost_600SemiBold", color: emailTitleColor }}
+          >
+            {emailTitle}
+          </Text>
           <TextInput
             placeholder=" you@email.com"
             autoCapitalize="none"
             selectionColor="#F72585"
+            underlineColorAndroid={emailInputBorder}
             style={styles.formInputField}
             onChangeText={(text) => onChangeTextEmail(text)}
             value={emailValue}
