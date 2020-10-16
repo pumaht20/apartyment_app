@@ -40,7 +40,6 @@ const SignUp = ({ navigation }) => {
       if (res.status === 201) {
         navigation.navigate("Hub");
       } else if (res.status === 409) {
-        console.log("User with that email already exists.");
         setEmailTitle("This email is already registered!");
         setEmailTitleColor("#FF3E3E");
         setEmailInputBorder("#FF3E3E");
@@ -52,8 +51,8 @@ const SignUp = ({ navigation }) => {
     return <AppLoading />;
   }
   return (
-    <SafeAreaView style={styles.loginWrapper}>
-      <ScrollView style={styles.loginScrollView}>
+    <SafeAreaView style={styles.signUpWrapper}>
+      <ScrollView style={styles.signUpScrollView}>
         <View style={styles.headerView}>
           <Text style={styles.headerText}>SIGN UP</Text>
         </View>
@@ -125,7 +124,7 @@ const SignUp = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  loginWrapper: {
+  signUpWrapper: {
     justifyContent: "space-between",
     alignItems: "center",
     flex: 1,
@@ -133,7 +132,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FAFAFA",
   },
 
-  loginScrollView: {
+  signUpScrollView: {
     flex: 1,
   },
 

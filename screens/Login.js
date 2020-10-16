@@ -27,11 +27,8 @@ const Login = ({ navigation }) => {
   const handleLogin = () => {
     APILoginUser(emailValue, passwordValue).then((res) => {
       if (res.status === 200) {
-        console.log("Password matches hash, login successful.");
         navigation.navigate("Hub");
-        setPasswordBorderColor("##25F796");
       } else if (res.status === 401) {
-        console.log("Password does not match hash, wrong password.");
         setPasswordBorderColor("#FF3E3E");
         setPasswordTitleColor("#FF3E3E");
         setPasswordTitle("Wrong Password!");
