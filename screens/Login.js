@@ -10,6 +10,7 @@ import {
 import { AppLoading } from "expo";
 import Buildings from "../resources/svg/buildings.js";
 import { useFonts, Jost_600SemiBold } from "@expo-google-fonts/jost";
+import { APILoginUser } from "../services/APIService";
 
 const Login = ({ navigation }) => {
   const [emailValue, onChangeTextEmail] = React.useState("");
@@ -17,6 +18,17 @@ const Login = ({ navigation }) => {
   const [fontsLoaded] = useFonts({
     Jost_600SemiBold,
   });
+
+  const handleLogin = () => {
+    APILoginUser(emailValue, passwordValue).then((res) => {
+      if (res.status === 200) {
+        console.log("Password matches hash, login successful.");
+        navigation.navigate("Hub");
+      } else if (res.status === 401) {
+        console.log("Password does not match hash, wrong password.");
+      }
+    });
+  };
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -32,17 +44,19 @@ const Login = ({ navigation }) => {
       <View style={styles.formView}>
         <Text style={styles.formTitle}>Email address</Text>
         <TextInput
-          placeholder=" you@email.com"
+          placeholder="you@email.com"
           selectionColor="#F72585"
+          textContentType="emailAddress"
           style={styles.formInputField}
           onChangeText={(text) => onChangeTextEmail(text)}
           value={emailValue}
         />
         <Text style={styles.formTitle}>Password</Text>
         <TextInput
-          placeholder=" Your Password"
+          placeholder="Your Password"
           secureTextEntry={true}
           selectionColor="#F72585"
+          textContentType="password"
           style={styles.formInputField}
           onChangeText={(text) => onChangeTextPassword(text)}
           value={passwordValue}
@@ -51,7 +65,7 @@ const Login = ({ navigation }) => {
           <Button
             title="Sign In"
             color="#F72585"
-            onPress={() => navigation.navigate("Hub")}
+            onPress={() => handleLogin()}
           />
         </View>
         <View
