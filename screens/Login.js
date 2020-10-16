@@ -18,6 +18,9 @@ const Login = ({ navigation }) => {
   const [fontsLoaded] = useFonts({
     Jost_600SemiBold,
   });
+  const [emailBorderColor, setEmailBorderColor] = React.useState("#EFEFEF");
+  const [emailTitle, setEmailTitle] = React.useState("Email");
+  const [emailTitleColor, setEmailTitleColor] = React.useState("#000000");
   const [passwordBorderColor, setPasswordBorderColor] = React.useState(
     "#EFEFEF"
   );
@@ -33,8 +36,10 @@ const Login = ({ navigation }) => {
         setPasswordTitleColor("#FF3E3E");
         setPasswordTitle("Wrong Password!");
         onChangeTextPassword("");
-      } else {
-        setPasswordBorderColor("#FF3E3E");
+      } else if (res.status === 404) {
+        setEmailBorderColor("#FF3E3E");
+        setEmailTitleColor("#FF3E3E");
+        setEmailTitle("Email not found!");
       }
     });
   };
@@ -51,13 +56,23 @@ const Login = ({ navigation }) => {
         <Buildings />
       </View>
       <View style={styles.formView}>
-        <Text style={styles.formTitle}>Email address</Text>
+        <Text
+          style={{ fontFamily: "Jost_600SemiBold", color: emailTitleColor }}
+        >
+          {emailTitle}
+        </Text>
         <TextInput
           placeholder="you@email.com"
           selectionColor="#F72585"
           textContentType="emailAddress"
           autoCapitalize="none"
-          style={styles.formInputField}
+          style={{
+            height: 50,
+            width: 300,
+            borderRadius: 5,
+            backgroundColor: "#EFEFEF",
+            borderColor: emailBorderColor,
+          }}
           onChangeText={(text) => onChangeTextEmail(text)}
           value={emailValue}
         />
