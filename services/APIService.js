@@ -1,20 +1,32 @@
+import axios from "axios";
+
 const FIREBASE_ADDRESS =
   "https://us-central1-apartyment-d511d.cloudfunctions.net/app/";
 
-export const GET_REQUEST_root = () => {
-  return fetch(FIREBASE_ADDRESS + "root")
-    .then((response) => response.json())
-    .then((json) => {
-      return json;
+export const APIRegisterUser = async (email, name, phonenumber, password) => {
+  const response = await axios
+    .post(FIREBASE_ADDRESS + "register_user", {
+      email: email,
+      name: name,
+      phonenumber: phonenumber,
+      password: password,
+    })
+    .then((res) => res)
+    .catch((err) => {
+      return err.response;
     });
+  return response;
 };
 
-export const GET_REQUEST_all_application_users = async () => {
-  try {
-    let response = await fetch(FIREBASE_ADDRESS + "get_users");
-    let json = await response.json();
-    return json.message;
-  } catch (error) {
-    console.error(error);
-  }
+export const APILoginUser = async (email, password) => {
+  const response = await axios
+    .post(FIREBASE_ADDRESS + "login_user", {
+      email: email,
+      password: password,
+    })
+    .then((res) => res)
+    .catch((err) => {
+      return err.response;
+    });
+  return response;
 };
