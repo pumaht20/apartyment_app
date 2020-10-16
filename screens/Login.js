@@ -18,14 +18,26 @@ const Login = ({ navigation }) => {
   const [fontsLoaded] = useFonts({
     Jost_600SemiBold,
   });
+  const [passwordBorderColor, setPasswordBorderColor] = React.useState(
+    "#EFEFEF"
+  );
+  const [passwordTitle, setPasswordTitle] = React.useState("Password");
+  const [passwordTitleColor, setPasswordTitleColor] = React.useState("#000000");
 
   const handleLogin = () => {
     APILoginUser(emailValue, passwordValue).then((res) => {
       if (res.status === 200) {
         console.log("Password matches hash, login successful.");
         navigation.navigate("Hub");
+        setPasswordBorderColor("##25F796");
       } else if (res.status === 401) {
         console.log("Password does not match hash, wrong password.");
+        setPasswordBorderColor("#FF3E3E");
+        setPasswordTitleColor("#FF3E3E");
+        setPasswordTitle("Wrong Password!");
+        onChangeTextPassword("");
+      } else {
+        setPasswordBorderColor("#FF3E3E");
       }
     });
   };
@@ -47,17 +59,29 @@ const Login = ({ navigation }) => {
           placeholder="you@email.com"
           selectionColor="#F72585"
           textContentType="emailAddress"
+          autoCapitalize="none"
           style={styles.formInputField}
           onChangeText={(text) => onChangeTextEmail(text)}
           value={emailValue}
         />
-        <Text style={styles.formTitle}>Password</Text>
+        <Text
+          style={{ fontFamily: "Jost_600SemiBold", color: passwordTitleColor }}
+        >
+          {passwordTitle}
+        </Text>
         <TextInput
           placeholder="Your Password"
           secureTextEntry={true}
           selectionColor="#F72585"
           textContentType="password"
-          style={styles.formInputField}
+          underlineColorAndroid={passwordBorderColor}
+          style={{
+            height: 50,
+            width: 300,
+            borderRadius: 5,
+            backgroundColor: "#EFEFEF",
+            borderColor: passwordBorderColor,
+          }}
           onChangeText={(text) => onChangeTextPassword(text)}
           value={passwordValue}
         />
