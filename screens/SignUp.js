@@ -8,7 +8,11 @@ import {
   ScrollView,
   TextInput,
 } from "react-native";
-const axios = require("axios").default;
+import {
+  validateEmail,
+  validateName,
+  validatePasswordStrength,
+} from "input-validators-js";
 import { AppLoading } from "expo";
 import Buildings from "../resources/svg/buildings.js";
 import { useFonts, Jost_600SemiBold } from "@expo-google-fonts/jost";
@@ -30,6 +34,28 @@ const SignUp = ({ navigation }) => {
   const [emailTitleColor, setEmailTitleColor] = React.useState("#000000");
   const [emailInputBorder, setEmailInputBorder] = React.useState("#EFEFEF");
 
+  const [nameTitle, setNameTitle] = React.useState("Name");
+  const [nameTitleColor, setNameTitleColor] = React.useState("#000000");
+  const [nameInputBorder, setNameInputBorder] = React.useState("#EFEFEF");
+
+  const [passwordTitle, setPasswordTitle] = React.useState("Password");
+  const [passwordTitleColor, setPasswordTitleColor] = React.useState("#000000");
+  const [passwordInputBorder, setPasswordInputBorder] = React.useState(
+    "#EFEFEF"
+  );
+
+  const [confirmPasswordTitle, setConfirmPasswordTitle] = React.useState(
+    "Confirm Password"
+  );
+  const [
+    confirmPasswordTitleColor,
+    setConfirmPasswordTitleColor,
+  ] = React.useState("#000000");
+  const [
+    confirmPasswordInputBorder,
+    setConfirmPasswordInputBorder,
+  ] = React.useState("#EFEFEF");
+
   const onSubmitUser = () => {
     APIRegisterUser(
       emailValue,
@@ -38,6 +64,7 @@ const SignUp = ({ navigation }) => {
       passwordValue
     ).then((res) => {
       if (res.status === 201) {
+        console.log("res: ", res.status);
         navigation.navigate("Hub");
       } else if (res.status === 409) {
         setEmailTitle("This email is already registered!");
@@ -45,6 +72,67 @@ const SignUp = ({ navigation }) => {
         setEmailInputBorder("#FF3E3E");
       }
     });
+  };
+
+  const inputValidation = (field) => {
+    switch (field) {
+      case 0:
+        if (!validateName(nameValue)) {
+          setNameTitle("You've submitted invalid characters.");
+          setNameTitleColor("#FF3E3E");
+          setNameInputBorder("#FF3E3E");
+        } else {
+          setNameTitle("Name");
+          setNameTitleColor("#23F7BE");
+          setNameInputBorder("#23F7BE");
+        }
+        break;
+      case 1:
+        if (!validateEmail(emailValue)) {
+          setEmailTitle("Please enter a correct email address.");
+          setEmailTitleColor("#FF3E3E");
+          setEmailInputBorder("#FF3E3E");
+        } else {
+          setEmailTitle("Email address");
+          setEmailTitleColor("#25F7BE");
+          setEmailInputBorder("#25F7BE");
+        }
+        break;
+      case 2:
+        break;
+      case 3:
+        if (
+          validatePasswordStrength(passwordValue).passwordStrength === "weak"
+        ) {
+          setPasswordTitle("Weak password!");
+          setPasswordTitleColor("#FF3E3E");
+          setPasswordInputBorder("#FF3E3E");
+        } else if (
+          validatePasswordStrength(passwordValue).passwordStrength === "medium"
+        ) {
+          setPasswordTitle("Acceptable password, could be stronger");
+          setPasswordTitleColor("#F7D725");
+          setPasswordInputBorder("#F7D725");
+        } else if (
+          validatePasswordStrength(passwordValue).passwordStrength === "strong"
+        ) {
+          setPasswordTitle("Strong password");
+          setPasswordTitleColor("#25F7BE");
+          setPasswordInputBorder("#25F7BE");
+        }
+        break;
+      case 4:
+        if (passwordConfirmValue !== passwordValue) {
+          setConfirmPasswordTitle("Please re-enter the same password.");
+          setConfirmPasswordTitleColor("#FF3E3E");
+          setConfirmPasswordInputBorder("#FF3E3E");
+        } else {
+          setConfirmPasswordTitle("Confirm Password");
+          setConfirmPasswordTitleColor("#25F7BE");
+          setConfirmPasswordInputBorder("#25F7BE");
+        }
+        break;
+    }
   };
 
   if (!fontsLoaded) {
@@ -60,12 +148,18 @@ const SignUp = ({ navigation }) => {
           <Buildings />
         </View>
         <View style={styles.formView}>
-          <Text style={styles.formTitle}>Name</Text>
+          <Text
+            style={{ fontFamily: "Jost_600SemiBold", color: nameTitleColor }}
+          >
+            {nameTitle}
+          </Text>
           <TextInput
             placeholder="Name Lastname"
             selectionColor="#F72585"
+            underlineColorAndroid={nameInputBorder}
             style={styles.formInputField}
             onChangeText={(text) => onChangeTextName(text)}
+            onEndEditing={() => inputValidation(0)}
             value={nameValue}
           />
           <Text
@@ -80,6 +174,7 @@ const SignUp = ({ navigation }) => {
             underlineColorAndroid={emailInputBorder}
             style={styles.formInputField}
             onChangeText={(text) => onChangeTextEmail(text)}
+            onEndEditing={() => inputValidation(1)}
             value={emailValue}
           />
           <Text style={styles.formTitle}>Phonenumber</Text>
@@ -91,23 +186,40 @@ const SignUp = ({ navigation }) => {
             onChangeText={(text) => onChangeTextPhonenumber(text)}
             value={phonenumberValue}
           />
-
-          <Text style={styles.formTitle}>Password</Text>
+          <Text
+            style={{
+              fontFamily: "Jost_600SemiBold",
+              color: passwordTitleColor,
+            }}
+          >
+            {passwordTitle}
+          </Text>
           <TextInput
             placeholder="Your Password"
             secureTextEntry={true}
             selectionColor="#F72585"
             style={styles.formInputField}
+            underlineColorAndroid={passwordInputBorder}
             onChangeText={(text) => onChangeTextPassword(text)}
+            onEndEditing={() => inputValidation(3)}
             value={passwordValue}
           />
-          <Text style={styles.formTitle}>Confirm Password</Text>
+          <Text
+            style={{
+              fontFamily: "Jost_600SemiBold",
+              color: confirmPasswordTitleColor,
+            }}
+          >
+            {confirmPasswordTitle}
+          </Text>
           <TextInput
-            placeholder=" Your Password"
+            placeholder="Your Password"
             secureTextEntry={true}
             selectionColor="#F72585"
             style={styles.formInputField}
+            underlineColorAndroid={confirmPasswordInputBorder}
             onChangeText={(text) => onChangeTextPasswordConfirm(text)}
+            onEndEditing={() => inputValidation(4)}
             value={passwordConfirmValue}
           />
           <View style={styles.buttonWrapper}>
