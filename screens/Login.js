@@ -10,6 +10,7 @@ import {
 import { AppLoading } from "expo";
 import Buildings from "../resources/svg/buildings.js";
 import { useFonts, Jost_600SemiBold } from "@expo-google-fonts/jost";
+import { APILoginUser } from "../services/APIService";
 
 const Login = ({ navigation }) => {
   const [emailValue, onChangeTextEmail] = React.useState("");
@@ -17,6 +18,31 @@ const Login = ({ navigation }) => {
   const [fontsLoaded] = useFonts({
     Jost_600SemiBold,
   });
+  const [emailBorderColor, setEmailBorderColor] = React.useState("#EFEFEF");
+  const [emailTitle, setEmailTitle] = React.useState("Email");
+  const [emailTitleColor, setEmailTitleColor] = React.useState("#000000");
+  const [passwordBorderColor, setPasswordBorderColor] = React.useState(
+    "#EFEFEF"
+  );
+  const [passwordTitle, setPasswordTitle] = React.useState("Password");
+  const [passwordTitleColor, setPasswordTitleColor] = React.useState("#000000");
+
+  const handleLogin = () => {
+    APILoginUser(emailValue, passwordValue).then((res) => {
+      if (res.status === 200) {
+        navigation.navigate("Hub");
+      } else if (res.status === 401) {
+        setPasswordBorderColor("#FF3E3E");
+        setPasswordTitleColor("#FF3E3E");
+        setPasswordTitle("Wrong Password!");
+        onChangeTextPassword("");
+      } else if (res.status === 404) {
+        setEmailBorderColor("#FF3E3E");
+        setEmailTitleColor("#FF3E3E");
+        setEmailTitle("Email not found!");
+      }
+    });
+  };
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -30,20 +56,44 @@ const Login = ({ navigation }) => {
         <Buildings />
       </View>
       <View style={styles.formView}>
-        <Text style={styles.formTitle}>Email address</Text>
+        <Text
+          style={{ fontFamily: "Jost_600SemiBold", color: emailTitleColor }}
+        >
+          {emailTitle}
+        </Text>
         <TextInput
-          placeholder=" you@email.com"
+          placeholder="you@email.com"
           selectionColor="#F72585"
-          style={styles.formInputField}
+          textContentType="emailAddress"
+          autoCapitalize="none"
+          style={{
+            height: 50,
+            width: 300,
+            borderRadius: 5,
+            backgroundColor: "#EFEFEF",
+            borderColor: emailBorderColor,
+          }}
           onChangeText={(text) => onChangeTextEmail(text)}
           value={emailValue}
         />
-        <Text style={styles.formTitle}>Password</Text>
+        <Text
+          style={{ fontFamily: "Jost_600SemiBold", color: passwordTitleColor }}
+        >
+          {passwordTitle}
+        </Text>
         <TextInput
-          placeholder=" Your Password"
+          placeholder="Your Password"
           secureTextEntry={true}
           selectionColor="#F72585"
-          style={styles.formInputField}
+          textContentType="password"
+          underlineColorAndroid={passwordBorderColor}
+          style={{
+            height: 50,
+            width: 300,
+            borderRadius: 5,
+            backgroundColor: "#EFEFEF",
+            borderColor: passwordBorderColor,
+          }}
           onChangeText={(text) => onChangeTextPassword(text)}
           value={passwordValue}
         />
@@ -51,7 +101,7 @@ const Login = ({ navigation }) => {
           <Button
             title="Sign In"
             color="#F72585"
-            onPress={() => navigation.navigate("Hub")}
+            onPress={() => handleLogin()}
           />
         </View>
         <View
