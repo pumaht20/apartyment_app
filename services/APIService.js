@@ -45,3 +45,18 @@ export const APIGetGroupSchedule = async (eventCode, groupName) => {
     });
   return response;
 };
+
+export const APIGetTimeslotHostDetails = async (eventCode, hostGroup) => {
+  const response = await axios
+    .get(FIREBASE_ADDRESS + "get_host_station", {
+      params: {
+        event_code: eventCode,
+        host_group: hostGroup,
+      },
+    })
+    .then((res) => res)
+    .catch((err) => {
+      return err.response;
+    });
+  return response;
+};
