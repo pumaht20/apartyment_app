@@ -15,14 +15,16 @@ import {
   Jost_300Light,
 } from "@expo-google-fonts/jost";
 import { AppLoading } from "expo";
-import ScheduleCard from "./components/ScheduleCard";
+import ScheduleCounter from "./counters/ScheduleCounter";
 
 const GroupSchedule = ({ navigation }) => {
+  const [timeslots, setTimeslots] = React.useState([]);
   const getData = async () => {
-    const raw = await APIGetGroupSchedule("RJQNB", "Grupp 2");
-    console.log(raw.data);
+    const raw = await APIGetGroupSchedule("RJQNB", "Grupp 1");
+    setTimeslots(
+      raw.data.message.sort((a, b) => a.begins.localeCompare(b.begins))
+    );
   };
-
   const [fontsLoaded] = useFonts({
     Jost_600SemiBold,
     Jost_300Light,
@@ -31,7 +33,6 @@ const GroupSchedule = ({ navigation }) => {
   useEffect(() => {
     getData();
   }, []);
-
   if (!fontsLoaded) {
     return <AppLoading />;
   }
@@ -41,8 +42,7 @@ const GroupSchedule = ({ navigation }) => {
         <Text style={styles.headerText}>Schedule</Text>
         <Text style={styles.subHeader}>Schedule for "Gruppnamn"</Text>
         <ScrollView style={styles.scheduleView}>
-          <Text>ScheduleCards goes here</Text>
-          <ScheduleCard />
+          <ScheduleCounter props={timeslots} />
         </ScrollView>
       </View>
     </SafeAreaView>
@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
   scheduleView: {
     marginTop: 25,
     alignSelf: "center",
-    backgroundColor: "blue",
     height: "auto",
     width: "85%",
   },
