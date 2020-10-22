@@ -8,7 +8,7 @@ import {
 } from "@expo-google-fonts/jost";
 import { AppLoading } from "expo";
 import { useNavigation } from "@react-navigation/native";
-
+import { Ionicons } from "@expo/vector-icons";
 const ScheduleCard = (props) => {
   const navigation = useNavigation();
   const [fontsLoaded] = useFonts({
@@ -36,12 +36,25 @@ const ScheduleCard = (props) => {
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
         >
-          <Text style={styles.groupName}>{props.timeslot.host_group}</Text>
-          <Text style={styles.address}>Adress</Text>
-          <Text style={styles.time}>
-            {props.timeslot.begins.substring(12, 17)} -{" "}
-            {props.timeslot.ends.substring(12, 17)}
-          </Text>
+          <View style={styles.cardRows}>
+            <View style={styles.cardCols}>
+              <Text style={styles.groupName}>{props.timeslot.host_group}</Text>
+              <Text style={styles.address}>Adress</Text>
+              <Text style={styles.time}>
+                {props.timeslot.begins.substring(12, 17)} -{" "}
+                {props.timeslot.ends.substring(12, 17)}
+              </Text>
+            </View>
+
+            <View style={styles.arrowContainer}>
+              <Ionicons
+                style={styles.arrow}
+                name="ios-arrow-forward"
+                size={24}
+                color="white"
+              />
+            </View>
+          </View>
         </LinearGradient>
       </TouchableOpacity>
     </View>
@@ -78,6 +91,20 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontFamily: "Jost_300Light",
     paddingBottom: 15,
+  },
+  cardRows: {
+    flexDirection: "row",
+  },
+  cardCols: {
+    flexDirection: "column",
+  },
+  arrowContainer: {
+    alignSelf: "center",
+    width: "70%",
+  },
+  arrow: {
+    alignSelf: "flex-end",
+    right: 0,
   },
 });
 
