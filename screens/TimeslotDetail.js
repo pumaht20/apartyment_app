@@ -7,7 +7,7 @@ import {
   Jost_300Light,
 } from "@expo-google-fonts/jost";
 import { AppLoading } from "expo";
-
+import { FontAwesome5, FontAwesome, Entypo } from "@expo/vector-icons";
 const TimeslotDetail = ({ route }) => {
   const [fontsLoaded] = useFonts({
     Jost_600SemiBold,
@@ -15,7 +15,6 @@ const TimeslotDetail = ({ route }) => {
   });
 
   const { host, begins, ends } = route.params;
-  const test = "Grupp 1";
   const [hostData, setHostData] = React.useState({});
   const getData = async () => {
     const raw = await APIGetTimeslotHostDetails("RJQNB", host);
@@ -32,17 +31,26 @@ const TimeslotDetail = ({ route }) => {
   return (
     <SafeAreaView style={styles.timeslotDetailSafe}>
       <View style={styles.groupScheduleScroll}>
-        <Text style={styles.headerText}>{test}</Text>
+        <Text style={styles.headerText}>{host}</Text>
         <Text style={styles.subHeader}>
           Event information for{" "}
           <Text style={styles.contactTextBold}>{host}</Text>
         </Text>
         <View style={styles.contactInformationWrapper}>
-          <Text style={styles.contactText}>{hostData.user_phonenumber}</Text>
-          <Text style={styles.contactText}>
-            {begins} - {ends}
-          </Text>
-          <Text style={styles.contactText}>{hostData.group_address}</Text>
+          <View style={styles.iconTextContainer}>
+            <FontAwesome5 name="clock" size={24} color="#4CC9F0" />
+            <Text style={styles.contactText}>{hostData.user_phonenumber}</Text>
+          </View>
+          <View style={styles.iconTextContainer}>
+            <FontAwesome name="phone" size={24} color="#4CC9F0" />
+            <Text style={styles.contactText}>
+              {begins} - {ends}
+            </Text>
+          </View>
+          <View style={styles.iconTextContainer}>
+            <Entypo name="location" size={24} color="#4CC9F0" />
+            <Text style={styles.contactText}>{hostData.group_address}</Text>
+          </View>
         </View>
       </View>
     </SafeAreaView>
@@ -92,6 +100,10 @@ const styles = StyleSheet.create({
 
   contactTextBold: {
     fontFamily: "Jost_600SemiBold",
+  },
+
+  iconTextContainer: {
+    flexDirection: "row",
   },
 });
 
