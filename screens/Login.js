@@ -93,7 +93,7 @@ const Login = ({ navigation }) => {
           {emailTitle}
         </Text>
         <TextInput
-          placeholder="you@email.com"
+          placeholder="elon.musk@tesla.com"
           selectionColor="#F72585"
           textContentType="emailAddress"
           autoCapitalize="none"

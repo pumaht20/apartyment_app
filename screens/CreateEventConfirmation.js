@@ -128,7 +128,6 @@ const styles = StyleSheet.create({
     width: 200,
     borderRadius: 15,
     marginTop: 190,
-    boxShadow: "0px 5px 10px rgba(247, 37, 133, 0.33)",
   },
 
   viewEventButtonText: {

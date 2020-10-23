@@ -5,37 +5,41 @@ import { useState } from "react";
 import { Ionicons } from '@expo/vector-icons';
 import { useFonts, Jost_800ExtraBold, Jost_500Medium, } from "@expo-google-fonts/jost";
 import { AppLoading } from "expo";
+import { validateDateFormatDayMonthYear } from "input-validators-js";
+
+
 
 
 
 const CreateEvent = ({ navigation }) => {
-  const [date, setDate] = useState(new Date(1598051730000));
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
+  const [eventTitle, onChangeEventTitle] = React.useState("");
+  const [time, onChangeTime] = React.useState("");
+  const [groupSize, onChangeGroupSize] = React.useState("");
+  const [dateValue, onChangeDate] = React.useState("");
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
-    setDate(currentDate);
-  };
-
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
-  };
-
-  const showDatepicker = () => {
-    showMode('date');
-  };
-
-  const showTimepicker = () => {
-    showMode('time');
-  };
+  const [DateTitle, setdateTitle] = React.useState("Date of party");
+  const [DateTitleColor, setDateTitleColor] = React.useState("#000000");
+  const [DateBorderColor, setDateBorderColor] = React.useState(
+    "#EFEFEF"
+  );
 
   const [fontsLoaded] = useFonts({
     Jost_800ExtraBold,
     Jost_500Medium,
   });
+
+  const inputValidation = () => {
+    console.log("hello");
+    if (!validateDateFormatDayMonthYear(dateValue)) {
+      setdateTitle("Date of party: Enter a correct date format you idiot");
+      setDateTitleColor("#FF3E3E");
+      setDateBorderColor("#FF3E3E");
+    } else {
+      setdateTitle("Date of partys");
+      setDateTitleColor("#25F7BE");
+      setDateBorderColor("#25F7BE");
+    }
+  }
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -55,12 +59,37 @@ const CreateEvent = ({ navigation }) => {
         <View>
           <Text style={styles.formLabel}>Event title</Text>
           <TextInput name="eventTitle" style={styles.formInput} placeholder="e.g. Bike Party" required></TextInput>
-          <Text style={styles.formLabel}>Date of party</Text>
-          <TextInput name="date" style={styles.formInput} required></TextInput>
+
+          <Text style={{
+            fontFamily: "Jost_500Medium",
+            fontSize: 15,
+            marginBottom: 10,
+            marginLeft: 5,
+            color: DateTitleColor,
+          }}>{DateTitle}</Text>
+
+          <TextInput name="date" style={{
+            borderRadius: 15,
+            height: 45,
+            backgroundColor: '#EFEFEF',
+            marginBottom: 15,
+            padding: 15,
+            fontFamily: "Jost_500Medium",
+            borderColor: DateBorderColor,
+          }}
+            placeholder="DD/MM/YY"
+            onChangeText={(text) => onChangeDate(text)}
+            onEndEditing={() => inputValidation()}
+            value={dateValue}
+          ></TextInput>
+
           <Text style={styles.formLabel}>Time</Text>
-          <TextInput name="time" style={styles.formInput} required></TextInput>
+          <TextInput name="time"
+            placeholder="HH:MM/HH:MM"
+            style={styles.formInput} required></TextInput>
+
           <Text style={styles.formLabel}>Description</Text>
-          <TextInput name="desc" style={styles.formInputDesc} required></TextInput>
+          <TextInput name="desc" style={styles.formInputDesc} multiline={true} required></TextInput>
 
           <Text style={styles.formLabel}>Max group size</Text>
           <TextInput
@@ -74,7 +103,6 @@ const CreateEvent = ({ navigation }) => {
             <Text style={styles.viewEventButtonText}>View event</Text>
           </TouchableOpacity>
         </View>
-
       </View>
     </SafeAreaView>
   )
@@ -119,7 +147,7 @@ const styles = StyleSheet.create({
     fontFamily: "Jost_500Medium",
     fontSize: 15,
     marginBottom: 10,
-    marginLeft: 5
+    marginLeft: 5,
   },
 
   formInput: {
@@ -132,20 +160,23 @@ const styles = StyleSheet.create({
   },
 
   formInputDesc: {
+    fontFamily: "Jost_500Medium",
     borderRadius: 15,
-    height: 80,
+    textAlignVertical: "top",
     backgroundColor: '#EFEFEF',
     marginBottom: 15,
+    padding: 15,
+    lineHeight: 23,
+    height: 100,
   },
 
   viewEventButton: {
     backgroundColor: '#F72585',
     width: 200,
     borderRadius: 15,
-    marginTop: 60,
+    marginTop: 40,
     marginLeft: "auto",
     marginRight: "auto",
-    boxShadow: "0px 5px 10px rgba(247, 37, 133, 0.33)",
 
   },
 
@@ -156,7 +187,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     padding: 17,
   },
-
 
 });
 
