@@ -6,6 +6,7 @@ import {
   View,
   SafeAreaView,
   TextInput,
+  ScrollView,
 } from "react-native";
 import { validateEmail } from "input-validators-js";
 import { AppLoading } from "expo";
@@ -80,70 +81,75 @@ const Login = ({ navigation }) => {
   }
   return (
     <SafeAreaView style={styles.loginWrapper}>
-      <View style={styles.headerView}>
-        <Text style={styles.headerText}>APARTYMENT</Text>
-      </View>
-      <View style={styles.imageView}>
-        <Buildings />
-      </View>
-      <View style={styles.formView}>
-        <Text
-          style={{ fontFamily: "Jost_600SemiBold", color: emailTitleColor }}
-        >
-          {emailTitle}
-        </Text>
-        <TextInput
-          placeholder="elon.musk@tesla.com"
-          selectionColor="#F72585"
-          textContentType="emailAddress"
-          autoCapitalize="none"
-          style={{
-            height: 50,
-            width: 300,
-            borderRadius: 5,
-            backgroundColor: "#EFEFEF",
-            borderColor: emailBorderColor,
-          }}
-          onChangeText={(text) => onChangeTextEmail(text)}
-          onEndEditing={() => inputValidation(0)}
-          value={emailValue}
-        />
-        <Text
-          style={{ fontFamily: "Jost_600SemiBold", color: passwordTitleColor }}
-        >
-          {passwordTitle}
-        </Text>
-        <TextInput
-          placeholder="Your Password"
-          secureTextEntry={true}
-          selectionColor="#F72585"
-          textContentType="password"
-          underlineColorAndroid={passwordBorderColor}
-          style={{
-            height: 50,
-            width: 300,
-            borderRadius: 5,
-            backgroundColor: "#EFEFEF",
-            borderColor: passwordBorderColor,
-          }}
-          onChangeText={(text) => onChangeTextPassword(text)}
-          onEndEditing={() => inputValidation(1)}
-          value={passwordValue}
-        />
-        <View style={styles.buttonWrapper}>
-          <Button
-            title="Sign In"
-            color="#F72585"
-            onPress={() => handleLogin()}
+      <ScrollView style={{ flex: 1 }}>
+        <View style={styles.headerView}>
+          <Text style={styles.headerText}>APARTYMENT</Text>
+        </View>
+        <View style={styles.imageView}>
+          <Buildings />
+        </View>
+        <View style={styles.formView}>
+          <Text
+            style={{ fontFamily: "Jost_600SemiBold", color: emailTitleColor }}
+          >
+            {emailTitle}
+          </Text>
+          <TextInput
+            placeholder="elon.musk@tesla.com"
+            selectionColor="#F72585"
+            textContentType="emailAddress"
+            autoCapitalize="none"
+            style={{
+              height: 50,
+              width: 300,
+              borderRadius: 5,
+              backgroundColor: "#EFEFEF",
+              borderColor: emailBorderColor,
+            }}
+            onChangeText={(text) => onChangeTextEmail(text)}
+            onEndEditing={() => inputValidation(0)}
+            value={emailValue}
           />
+          <Text
+            style={{
+              fontFamily: "Jost_600SemiBold",
+              color: passwordTitleColor,
+            }}
+          >
+            {passwordTitle}
+          </Text>
+          <TextInput
+            placeholder="Your Password"
+            secureTextEntry={true}
+            selectionColor="#F72585"
+            textContentType="password"
+            underlineColorAndroid={passwordBorderColor}
+            style={{
+              height: 50,
+              width: 300,
+              borderRadius: 5,
+              backgroundColor: "#EFEFEF",
+              borderColor: passwordBorderColor,
+            }}
+            onChangeText={(text) => onChangeTextPassword(text)}
+            onEndEditing={() => inputValidation(1)}
+            value={passwordValue}
+          />
+          <View style={styles.buttonWrapper}>
+            <Button
+              title="Sign In"
+              color="#F72585"
+              onPress={() => handleLogin()}
+            />
+          </View>
+          <View
+            style={styles.signUpView}
+            onStartShouldSetResponder={() => navigation.navigate("SignUp")}
+          >
+            <Text style={styles.signUpText}>Sign Up</Text>
+          </View>
         </View>
-        <View
-          style={styles.signUpView}
-          onStartShouldSetResponder={() => navigation.navigate("SignUp")}
-        >
-          <Text style={styles.signUpText}>Sign Up</Text>
-        </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -162,9 +168,11 @@ const styles = StyleSheet.create({
     paddingTop: 50,
   },
   imageView: {
+    marginTop: 100,
     flex: 2,
   },
   formView: {
+    marginTop: 100,
     flex: 2,
     flexDirection: "column",
   },
@@ -172,6 +180,7 @@ const styles = StyleSheet.create({
   headerText: {
     color: "#F72585",
     fontFamily: "Jost_600SemiBold",
+    alignSelf: "center",
     fontSize: 36,
   },
 
