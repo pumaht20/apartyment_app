@@ -36,15 +36,15 @@ const Hub = ({ navigation }) => {
             style={styles.hubButton}
             onPress={() => navigation.navigate("Event")}
           >
-            <Text style={styles.hubButtonText}>View event</Text>
+            <Text style={styles.hubButtonText}>Create event</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.joinEventButtonWrapper}>
           <TouchableOpacity
             style={styles.hubButton}
-            onPress={() => navigation.navigate("Event")}
+            onPress={() => navigation.navigate("JoinEvent")}
           >
-            <Text style={styles.hubButtonText}>View event</Text>
+            <Text style={styles.hubButtonText}>Join event</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.eventsButtonWrapper}>
@@ -52,7 +52,7 @@ const Hub = ({ navigation }) => {
             style={styles.hubButton}
             onPress={() => navigation.navigate("Event")}
           >
-            <Text style={styles.hubButtonText}>View event</Text>
+            <Text style={styles.hubButtonText}>Event</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
