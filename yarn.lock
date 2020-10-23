@@ -7878,6 +7878,11 @@ inline-style-prefixer@^5.1.0:
   dependencies:
     css-in-js-utils "^2.0.0"
 
+input-validators-js@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/input-validators-js/-/input-validators-js-1.0.7.tgz#7a92a1dad3fb4cf575ff76481550a8c8c9516cf5"
+  integrity sha512-0sLgqmQxqwaX53gBP3LspfSV6Pe8eeLKwTwx8tv1I/nRDhqfoluL8i0yHmSrMMNzSLk/XXxt0T59rYDlYcsvYA==
+
 inquirer@5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-5.2.0.tgz#db350c2b73daca77ff1243962e9f22f099685726"

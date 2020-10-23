@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   TextInput,
 } from "react-native";
+import { validateEmail } from "input-validators-js";
 import { AppLoading } from "expo";
 import Buildings from "../resources/svg/buildings.js";
 import { useFonts, Jost_600SemiBold } from "@expo-google-fonts/jost";
@@ -18,16 +19,60 @@ const Login = ({ navigation }) => {
   const [fontsLoaded] = useFonts({
     Jost_600SemiBold,
   });
+  const [emailBorderColor, setEmailBorderColor] = React.useState("#EFEFEF");
+  const [emailTitle, setEmailTitle] = React.useState("Email");
+  const [emailTitleColor, setEmailTitleColor] = React.useState("#000000");
+
+  const [passwordTitle, setPasswordTitle] = React.useState("Password");
+  const [passwordTitleColor, setPasswordTitleColor] = React.useState("#000000");
+  const [passwordBorderColor, setPasswordBorderColor] = React.useState(
+    "#EFEFEF"
+  );
 
   const handleLogin = () => {
     APILoginUser(emailValue, passwordValue).then((res) => {
       if (res.status === 200) {
-        console.log("Password matches hash, login successful.");
         navigation.navigate("Hub");
       } else if (res.status === 401) {
-        console.log("Password does not match hash, wrong password.");
+        setPasswordBorderColor("#FF3E3E");
+        setPasswordTitleColor("#FF3E3E");
+        setPasswordTitle("Wrong Password!");
+        onChangeTextPassword("");
+      } else if (res.status === 404) {
+        setEmailBorderColor("#FF3E3E");
+        setEmailTitleColor("#FF3E3E");
+        setEmailTitle("Email not found!");
       }
     });
+  };
+
+  const inputValidation = (field) => {
+    switch (field) {
+      case 0:
+        if (!validateEmail(emailValue)) {
+          setEmailTitle("Please enter a correct email address.");
+          setEmailTitleColor("#FF3E3E");
+          setEmailBorderColor("#FF3E3E");
+        } else {
+          setEmailTitle("Email address");
+          setEmailTitleColor("#25F7BE");
+          setEmailBorderColor("#25F7BE");
+        }
+        break;
+      case 1:
+        if (!passwordValue.trim()) {
+          setPasswordTitle("Please enter password");
+          setPasswordTitleColor("#FF3E3E");
+          setPasswordBorderColor("#FF3E3E");
+        } else {
+          setPasswordTitle("Password");
+          setPasswordTitleColor("#25F7BE");
+          setPasswordBorderColor("#25F7BE");
+        }
+        break;
+      default:
+        break;
+    }
   };
 
   if (!fontsLoaded) {
@@ -42,23 +87,47 @@ const Login = ({ navigation }) => {
         <Buildings />
       </View>
       <View style={styles.formView}>
-        <Text style={styles.formTitle}>Email address</Text>
+        <Text
+          style={{ fontFamily: "Jost_600SemiBold", color: emailTitleColor }}
+        >
+          {emailTitle}
+        </Text>
         <TextInput
           placeholder="you@email.com"
           selectionColor="#F72585"
           textContentType="emailAddress"
-          style={styles.formInputField}
+          autoCapitalize="none"
+          style={{
+            height: 50,
+            width: 300,
+            borderRadius: 5,
+            backgroundColor: "#EFEFEF",
+            borderColor: emailBorderColor,
+          }}
           onChangeText={(text) => onChangeTextEmail(text)}
+          onEndEditing={() => inputValidation(0)}
           value={emailValue}
         />
-        <Text style={styles.formTitle}>Password</Text>
+        <Text
+          style={{ fontFamily: "Jost_600SemiBold", color: passwordTitleColor }}
+        >
+          {passwordTitle}
+        </Text>
         <TextInput
           placeholder="Your Password"
           secureTextEntry={true}
           selectionColor="#F72585"
           textContentType="password"
-          style={styles.formInputField}
+          underlineColorAndroid={passwordBorderColor}
+          style={{
+            height: 50,
+            width: 300,
+            borderRadius: 5,
+            backgroundColor: "#EFEFEF",
+            borderColor: passwordBorderColor,
+          }}
           onChangeText={(text) => onChangeTextPassword(text)}
+          onEndEditing={() => inputValidation(1)}
           value={passwordValue}
         />
         <View style={styles.buttonWrapper}>
