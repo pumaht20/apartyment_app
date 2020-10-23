@@ -13,6 +13,7 @@ import {
   SafeAreaView,
   ScrollView,
 } from "react-native";
+import { AppLoading } from "expo";
 
 const Hub = ({ navigation }) => {
   const [fontsLoaded] = useFonts({
