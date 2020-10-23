@@ -3,7 +3,10 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View, SafeAreaView, Plat
 import { AntDesign } from '@expo/vector-icons';
 import { useEffect, useState } from "react";
 import { useFonts, Jost_800ExtraBold, Jost_500Medium, } from "@expo-google-fonts/jost";
+import Goal from "../resources/svg/goal.js";
 import { AppLoading } from "expo";
+import { LinearGradient } from "expo-linear-gradient";
+
 
 
 
@@ -24,17 +27,24 @@ const CreateEventInformation = ({ navigation }) => {
     <SafeAreaView style={styles.createEventWrapper}>
       <View style={styles.createEventWrapper}>
         <Text style={styles.h1}>Wohooo!</Text>
-
-        <Text style={styles.p}>Your event has been created, share the code to invite people</Text>
+        <Goal></Goal>
+        <Text style={styles.p}>Your event has been created, <Text style={{ color: '#F72585' }}>share the code</Text> to invite people</Text>
         <View style={styles.eventCodeContainer}>
           <View style={styles.hej}>
             <Text style={styles.eventCodeText}>{eventCode}</Text>
             <TouchableOpacity onPress={() => Clipboard.setString(eventCode)}>
-              <View style={styles.copyButton}>
+              <LinearGradient
+                // Button Linear Gradient
+                colors={["#6C63FF", "#4CC9F0"]}
+                style={styles.copyButton}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+              >
                 <AntDesign name="copy1" size={24} color="#fafafa" />
                 <Text style={styles.copyButtonText}>Copy</Text>
-              </View>
+              </LinearGradient>
             </TouchableOpacity>
+
           </View>
         </View>
         <TouchableOpacity style={styles.viewEventButton} onPress={() => navigation.navigate("Event")}>
@@ -65,9 +75,11 @@ const styles = StyleSheet.create({
   p: {
     fontSize: 17,
     textAlign: "center",
-    marginRight: 30,
-    marginLeft: 30,
+    marginRight: 50,
+    marginLeft: 50,
     fontFamily: "Jost_500Medium",
+    marginTop: 25,
+
   },
 
   hej: {
@@ -88,9 +100,7 @@ const styles = StyleSheet.create({
     marginRight: 20,
     color: "#4CC9F0",
     fontFamily: "Jost_800ExtraBold",
-
   },
-
 
   copyButton: {
     backgroundColor: "#4CC9F0",
@@ -117,7 +127,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#F72585',
     width: 200,
     borderRadius: 15,
-    marginTop: 200,
+    marginTop: 190,
+    boxShadow: "0px 5px 10px rgba(247, 37, 133, 0.33)",
   },
 
   viewEventButtonText: {

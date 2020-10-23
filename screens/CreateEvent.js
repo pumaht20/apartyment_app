@@ -145,6 +145,8 @@ const styles = StyleSheet.create({
     marginTop: 60,
     marginLeft: "auto",
     marginRight: "auto",
+    boxShadow: "0px 5px 10px rgba(247, 37, 133, 0.33)",
+
   },
 
   viewEventButtonText: {
