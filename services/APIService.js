@@ -30,3 +30,33 @@ export const APILoginUser = async (email, password) => {
     });
   return response;
 };
+
+export const APIGetGroupSchedule = async (eventCode, groupName) => {
+  const response = await axios
+    .get(FIREBASE_ADDRESS + "get_group_schedule", {
+      params: {
+        event_code: eventCode,
+        group_name: groupName,
+      },
+    })
+    .then((res) => res)
+    .catch((err) => {
+      return err.response;
+    });
+  return response;
+};
+
+export const APIGetTimeslotHostDetails = async (eventCode, hostGroup) => {
+  const response = await axios
+    .get(FIREBASE_ADDRESS + "get_host_station", {
+      params: {
+        event_code: eventCode,
+        host_group: hostGroup,
+      },
+    })
+    .then((res) => res)
+    .catch((err) => {
+      return err.response;
+    });
+  return response;
+};

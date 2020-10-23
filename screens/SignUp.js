@@ -32,15 +32,15 @@ const SignUp = ({ navigation }) => {
 
   const [emailTitle, setEmailTitle] = React.useState("Email address");
   const [emailTitleColor, setEmailTitleColor] = React.useState("#000000");
-  const [emailInputBorder, setEmailInputBorder] = React.useState("#EFEFEF");
+  const [emailBorderColor, setEmailBorderColor] = React.useState("#EFEFEF");
 
   const [nameTitle, setNameTitle] = React.useState("Name");
   const [nameTitleColor, setNameTitleColor] = React.useState("#000000");
-  const [nameInputBorder, setNameInputBorder] = React.useState("#EFEFEF");
+  const [nameBorderColor, setNameBorderColor] = React.useState("#EFEFEF");
 
   const [passwordTitle, setPasswordTitle] = React.useState("Password");
   const [passwordTitleColor, setPasswordTitleColor] = React.useState("#000000");
-  const [passwordInputBorder, setPasswordInputBorder] = React.useState(
+  const [passwordBorderColor, setPasswordBorderColor] = React.useState(
     "#EFEFEF"
   );
 
@@ -52,8 +52,8 @@ const SignUp = ({ navigation }) => {
     setConfirmPasswordTitleColor,
   ] = React.useState("#000000");
   const [
-    confirmPasswordInputBorder,
-    setConfirmPasswordInputBorder,
+    confirmPasswordBorderColor,
+    setConfirmPasswordBorderColor,
   ] = React.useState("#EFEFEF");
 
   const onSubmitUser = () => {
@@ -69,7 +69,7 @@ const SignUp = ({ navigation }) => {
       } else if (res.status === 409) {
         setEmailTitle("This email is already registered!");
         setEmailTitleColor("#FF3E3E");
-        setEmailInputBorder("#FF3E3E");
+        setEmailBorderColor("#FF3E3E");
       }
     });
   };
@@ -80,22 +80,22 @@ const SignUp = ({ navigation }) => {
         if (!validateName(nameValue)) {
           setNameTitle("You've submitted invalid characters.");
           setNameTitleColor("#FF3E3E");
-          setNameInputBorder("#FF3E3E");
+          setNameBorderColor("#FF3E3E");
         } else {
           setNameTitle("Name");
           setNameTitleColor("#23F7BE");
-          setNameInputBorder("#23F7BE");
+          setNameBorderColor("#23F7BE");
         }
         break;
       case 1:
         if (!validateEmail(emailValue)) {
           setEmailTitle("Please enter a correct email address.");
           setEmailTitleColor("#FF3E3E");
-          setEmailInputBorder("#FF3E3E");
+          setEmailBorderColor("#FF3E3E");
         } else {
           setEmailTitle("Email address");
           setEmailTitleColor("#25F7BE");
-          setEmailInputBorder("#25F7BE");
+          setEmailBorderColor("#25F7BE");
         }
         break;
       case 2:
@@ -106,30 +106,30 @@ const SignUp = ({ navigation }) => {
         ) {
           setPasswordTitle("Weak password!");
           setPasswordTitleColor("#FF3E3E");
-          setPasswordInputBorder("#FF3E3E");
+          setPasswordBorderColor("#FF3E3E");
         } else if (
           validatePasswordStrength(passwordValue).passwordStrength === "medium"
         ) {
           setPasswordTitle("Acceptable password, could be stronger");
           setPasswordTitleColor("#F7D725");
-          setPasswordInputBorder("#F7D725");
+          setPasswordBorderColor("#F7D725");
         } else if (
           validatePasswordStrength(passwordValue).passwordStrength === "strong"
         ) {
           setPasswordTitle("Strong password");
           setPasswordTitleColor("#25F7BE");
-          setPasswordInputBorder("#25F7BE");
+          setPasswordBorderColor("#25F7BE");
         }
         break;
       case 4:
         if (passwordConfirmValue !== passwordValue) {
           setConfirmPasswordTitle("Please re-enter the same password.");
           setConfirmPasswordTitleColor("#FF3E3E");
-          setConfirmPasswordInputBorder("#FF3E3E");
+          setConfirmPasswordBorderColor("#FF3E3E");
         } else {
           setConfirmPasswordTitle("Confirm Password");
           setConfirmPasswordTitleColor("#25F7BE");
-          setConfirmPasswordInputBorder("#25F7BE");
+          setConfirmPasswordBorderColor("#25F7BE");
         }
         break;
     }
@@ -156,7 +156,7 @@ const SignUp = ({ navigation }) => {
           <TextInput
             placeholder="Name Lastname"
             selectionColor="#F72585"
-            underlineColorAndroid={nameInputBorder}
+            underlineColorAndroid={nameBorderColor}
             style={styles.formInputField}
             onChangeText={(text) => onChangeTextName(text)}
             onEndEditing={() => inputValidation(0)}
@@ -171,7 +171,7 @@ const SignUp = ({ navigation }) => {
             placeholder=" you@email.com"
             autoCapitalize="none"
             selectionColor="#F72585"
-            underlineColorAndroid={emailInputBorder}
+            underlineColorAndroid={emailBorderColor}
             style={styles.formInputField}
             onChangeText={(text) => onChangeTextEmail(text)}
             onEndEditing={() => inputValidation(1)}
@@ -199,7 +199,7 @@ const SignUp = ({ navigation }) => {
             secureTextEntry={true}
             selectionColor="#F72585"
             style={styles.formInputField}
-            underlineColorAndroid={passwordInputBorder}
+            underlineColorAndroid={passwordBorderColor}
             onChangeText={(text) => onChangeTextPassword(text)}
             onEndEditing={() => inputValidation(3)}
             value={passwordValue}
@@ -217,7 +217,7 @@ const SignUp = ({ navigation }) => {
             secureTextEntry={true}
             selectionColor="#F72585"
             style={styles.formInputField}
-            underlineColorAndroid={confirmPasswordInputBorder}
+            underlineColorAndroid={confirmPasswordBorderColor}
             onChangeText={(text) => onChangeTextPasswordConfirm(text)}
             onEndEditing={() => inputValidation(4)}
             value={passwordConfirmValue}
