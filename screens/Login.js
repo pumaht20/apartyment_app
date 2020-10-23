@@ -13,6 +13,7 @@ import { AppLoading } from "expo";
 import Buildings from "../resources/svg/buildings.js";
 import { useFonts, Jost_600SemiBold } from "@expo-google-fonts/jost";
 import { APILoginUser } from "../services/APIService";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login = ({ navigation }) => {
   const [emailValue, onChangeTextEmail] = React.useState("");
@@ -30,10 +31,21 @@ const Login = ({ navigation }) => {
     "#EFEFEF"
   );
 
+  const storeUserData = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      AsyncStorage.setItem("userInfo", jsonValue).then((res) => {
+        navigation.navigate("Hub");
+      });
+    } catch (e) {
+      // saving error
+    }
+  };
+
   const handleLogin = () => {
     APILoginUser(emailValue, passwordValue).then((res) => {
       if (res.status === 200) {
-        navigation.navigate("Hub");
+        storeUserData(res.data.message);
       } else if (res.status === 401) {
         setPasswordBorderColor("#FF3E3E");
         setPasswordTitleColor("#FF3E3E");

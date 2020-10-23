@@ -1,7 +1,8 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import Buildings from "../resources/svg/buildings.js";
 import { useFonts, Jost_600SemiBold } from "@expo-google-fonts/jost";
-import { useEffect, useState } from "react";
+import { AppLoading } from "expo";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   StyleSheet,
   Text,
@@ -12,6 +13,30 @@ import {
 } from "react-native";
 
 const Hub = ({ navigation }) => {
+  const [fontsLoaded] = useFonts({
+    Jost_600SemiBold,
+  });
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
+  const getUserInfo = async () => {
+    try {
+      AsyncStorage.getItem("userInfo").then((res) => {
+        const parsedData = res != null ? JSON.parse(res) : null;
+        if (!parsedData) navigation.navigate("Login");
+        return parsedData;
+      });
+    } catch (e) {
+      //navigation.navigate("Login");
+      console.log(e);
+    }
+  };
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   return (
     <SafeAreaView style={styles.hubWrapper}>
       <ScrollView style={styles.hubScrollWrapper}>
