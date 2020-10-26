@@ -7,12 +7,16 @@ import {
   SafeAreaView,
   ScrollView,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  Clipboard
 } from "react-native";
 import { AntDesign, FontAwesome5, Entypo } from "@expo/vector-icons";
 import CampFireImg from "../resources/images/campfire.png";
+import { LinearGradient } from "expo-linear-gradient";
 
 const Event = () => {
+  const eventCode = "RE3AC";
+
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <ScrollView>
@@ -40,6 +44,7 @@ const Event = () => {
             <Entypo name="calendar" size={24} color="#4CC9F0" />
             <Text style={styles.information}>27th September</Text>
           </View>
+          <View style={styles.eventCodeConatiner}></View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -73,7 +78,8 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     width: "100%",
-    height: 180
+    height: 180,
+    borderRadius: 15
   },
   eventNameContainer: {
     marginTop: 30,
@@ -104,7 +110,8 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     marginBottom: 30
-  }
+  },
+  eventCodeContainer: {}
 });
 
 export default Event;
