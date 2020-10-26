@@ -1,22 +1,32 @@
 import * as React from "react";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, SafeAreaView, Platform, Clipboard, Image } from "react-native";
-import { AntDesign } from '@expo/vector-icons';
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  SafeAreaView,
+  Platform,
+  Clipboard,
+  Image
+} from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
-import { useFonts, Jost_800ExtraBold, Jost_500Medium, } from "@expo-google-fonts/jost";
+import {
+  useFonts,
+  Jost_800ExtraBold,
+  Jost_500Medium
+} from "@expo-google-fonts/jost";
 import Goal from "../resources/svg/goal.js";
 import { AppLoading } from "expo";
 import { LinearGradient } from "expo-linear-gradient";
-
-
-
-
 
 const CreateEventInformation = ({ navigation }) => {
   const eventCode = "RE3AC";
 
   const [fontsLoaded] = useFonts({
     Jost_800ExtraBold,
-    Jost_500Medium,
+    Jost_500Medium
   });
 
   if (!fontsLoaded) {
@@ -28,7 +38,6 @@ const CreateEventInformation = ({ navigation }) => {
       <View style={styles.createEventWrapper}>
         <Text style={styles.h1}>Wohooo!</Text>
         <Goal></Goal>
-        <Text style={styles.p}>Your event has been created, <Text style={{ color: '#F72585' }}>share the code</Text> to invite people</Text>
         <View style={styles.eventCodeContainer}>
           <View style={styles.hej}>
             <Text style={styles.eventCodeText}>{eventCode}</Text>
@@ -44,32 +53,33 @@ const CreateEventInformation = ({ navigation }) => {
                 <Text style={styles.copyButtonText}>Copy</Text>
               </LinearGradient>
             </TouchableOpacity>
-
           </View>
         </View>
-        <TouchableOpacity style={styles.viewEventButton} onPress={() => navigation.navigate("Event")}>
+        <TouchableOpacity
+          style={styles.viewEventButton}
+          onPress={() => navigation.navigate("Event")}
+        >
           <Text style={styles.viewEventButtonText}>View event</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView >
-
-  )
+    </SafeAreaView>
+  );
 };
 const styles = StyleSheet.create({
   createEventWrapper: {
-    backgroundColor: '#fafafa',
+    backgroundColor: "#fafafa",
     flex: 1,
-    alignItems: "center",
+    alignItems: "center"
   },
 
   h1: {
     fontWeight: "800",
     fontSize: 28,
-    color: '#F72585',
+    color: "#F72585",
     marginBottom: 5,
     textAlign: "center",
     marginTop: 100,
-    fontFamily: "Jost_800ExtraBold",
+    fontFamily: "Jost_800ExtraBold"
   },
 
   p: {
@@ -78,8 +88,7 @@ const styles = StyleSheet.create({
     marginRight: 50,
     marginLeft: 50,
     fontFamily: "Jost_500Medium",
-    marginTop: 25,
-
+    marginTop: 25
   },
 
   hej: {
@@ -87,19 +96,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: 50,
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center"
   },
 
   eventCodeContainer: {
     height: 50,
-    padding: 50,
+    padding: 50
   },
 
   eventCodeText: {
     fontSize: 40,
     marginRight: 20,
     color: "#4CC9F0",
-    fontFamily: "Jost_800ExtraBold",
+    fontFamily: "Jost_800ExtraBold"
   },
 
   copyButton: {
@@ -110,8 +119,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingTop: 12,
     paddingBottom: 10,
-    width: 110,
-    height: 50,
+    width: 150,
+    height: 50
   },
 
   copyButtonText: {
@@ -120,14 +129,14 @@ const styles = StyleSheet.create({
     fontFamily: "Jost_800ExtraBold",
     fontSize: 17,
     paddingTop: 1,
-    paddingLeft: 5,
+    paddingLeft: 5
   },
 
   viewEventButton: {
-    backgroundColor: '#F72585',
+    backgroundColor: "#F72585",
     width: 200,
     borderRadius: 15,
-    marginTop: 190,
+    marginTop: 190
   },
 
   viewEventButtonText: {
@@ -135,8 +144,8 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: "#fafafa",
     textAlign: "center",
-    padding: 17,
-  },
-})
+    padding: 17
+  }
+});
 
 export default CreateEventInformation;

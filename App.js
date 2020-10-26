@@ -31,6 +31,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="EventsOverview" component={EventsOverview} />
         <Stack.Screen name="Login" component={Login} options={{ title: "" }} />
         <Stack.Screen name="Hub" component={Hub} />
         <Stack.Screen name="SignUp" component={SignUp} />
