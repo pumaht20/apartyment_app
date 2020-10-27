@@ -87,15 +87,6 @@ export const APICreateGroup = async (
   event_code
 ) => {
   try {
-    console.log("DATAAaaaaaaa");
-    console.log(user_id);
-    console.log(user_name);
-    console.log(user_phonenumber);
-    console.log(user_email);
-    console.log(group_name);
-    console.log(group_address);
-    console.log(event_code);
-
     const response = await axios.post(FIREBASE_ADDRESS + "create_group", {
       user_id,
       user_name,

@@ -28,12 +28,11 @@ const CreateGroup = ({ navigation, eventCode }) => {
 
   const getUserInfo = async () => {
     try {
-      AsyncStorage.getItem("userInfo").then((res) => {
-        const parsedData = res != null ? JSON.parse(res) : null;
-        if (!parsedData) navigation.navigate("Login");
-        console.log(parsedData);
-        return parsedData;
-      });
+      const userInfo = await AsyncStorage.getItem("userInfo");
+      const parsedData = userInfo != null ? JSON.parse(userInfo) : null;
+      if (!parsedData) navigation.navigate("Login");
+      console.log("parsedData: ", parsedData);
+      return parsedData;
     } catch (e) {
       console.log(e);
       navigation.navigate("Login");
@@ -66,21 +65,17 @@ const CreateGroup = ({ navigation, eventCode }) => {
         <TouchableHighlight
           style={styles.buttonWrapper}
           underlayColor="#F85EA5"
-          onPress={() => {
-            getUserInfo().then((res) => {
-              console.log("res: ", res);
-              const { user_id, user_name, user_phonenumber, user_email } = res;
-              APICreateGroup(
-                user_id,
-                user_name,
-                user_phonenumber,
-                user_email,
-                groupName,
-                address,
-                "WWAMW"
-              ).then(navigation.navigate("Hub"));
-            });
-            //Add data
+          onPress={async () => {
+            const userInfo = await getUserInfo();
+            APICreateGroup(
+              userInfo.user_id,
+              userInfo.user_name,
+              userInfo.user_phonenumber,
+              userInfo.user_email,
+              groupName,
+              address,
+              "WWAMW"
+            ).then(navigation.navigate("Hub"));
           }}
         >
           <Text style={styles.buttonText}>Create group</Text>
