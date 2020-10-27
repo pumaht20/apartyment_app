@@ -1,42 +1,28 @@
 import React, { useState, useEffect } from "react";
 import Buildings from "../resources/svg/buildings.js";
-import { useFonts, Jost_600SemiBold } from "@expo-google-fonts/jost";
-import { AppLoading } from "expo";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  useFonts,
+  Jost_600SemiBold,
+  Jost_800ExtraBold,
+} from "@expo-google-fonts/jost";
 import {
   StyleSheet,
   Text,
-  Button,
+  TouchableOpacity,
   View,
   SafeAreaView,
   ScrollView,
 } from "react-native";
+import { AppLoading } from "expo";
 
 const Hub = ({ navigation }) => {
   const [fontsLoaded] = useFonts({
-    Jost_600SemiBold,
+    Jost_800ExtraBold,
   });
-  useEffect(() => {
-    getUserInfo();
-  }, []);
-
-  const getUserInfo = async () => {
-    try {
-      AsyncStorage.getItem("userInfo").then((res) => {
-        const parsedData = res != null ? JSON.parse(res) : null;
-        if (!parsedData) navigation.navigate("Login");
-        return parsedData;
-      });
-    } catch (e) {
-      //navigation.navigate("Login");
-      console.log(e);
-    }
-  };
 
   if (!fontsLoaded) {
     return <AppLoading />;
   }
-
   return (
     <SafeAreaView style={styles.hubWrapper}>
       <ScrollView style={styles.hubScrollWrapper}>
@@ -46,25 +32,28 @@ const Hub = ({ navigation }) => {
         <Buildings />
 
         <View style={styles.createEventButtonWrapper}>
-          <Button
-            color="#F72585"
-            title="Create Event"
-            onPress={() => navigation.navigate("CreateEvent")}
-          />
+          <TouchableOpacity
+            style={styles.hubButton}
+            onPress={() => navigation.navigate("Event")}
+          >
+            <Text style={styles.hubButtonText}>Create event</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.joinEventButtonWrapper}>
-          <Button
-            color="#F72585"
-            title="Join Event"
-            onPress={() => navigation.navigate("CreateEvent")}
-          />
+          <TouchableOpacity
+            style={styles.hubButton}
+            onPress={() => navigation.navigate("JoinEvent")}
+          >
+            <Text style={styles.hubButtonText}>Join event</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.eventsButtonWrapper}>
-          <Button
-            color="#F72585"
-            title="Events"
-            onPress={() => navigation.navigate("CreateEvent")}
-          />
+          <TouchableOpacity
+            style={styles.hubButton}
+            onPress={() => navigation.navigate("Event")}
+          >
+            <Text style={styles.hubButtonText}>Event</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -86,7 +75,8 @@ const styles = StyleSheet.create({
 
   headerView: {
     flex: 1,
-    paddingTop: 100,
+    paddingTop: 80,
+    marginBottom: 50,
   },
 
   headerText: {
@@ -97,7 +87,7 @@ const styles = StyleSheet.create({
   },
 
   createEventButtonWrapper: {
-    marginTop: 20,
+    marginTop: 100,
   },
 
   joinEventButtonWrapper: {
@@ -106,6 +96,21 @@ const styles = StyleSheet.create({
 
   eventsButtonWrapper: {
     marginTop: 20,
+  },
+
+  hubButton: {
+    alignSelf: "center",
+    backgroundColor: "#F72585",
+    width: 200,
+    borderRadius: 15,
+  },
+
+  hubButtonText: {
+    fontFamily: "Jost_800ExtraBold",
+    fontSize: 17,
+    color: "#fafafa",
+    textAlign: "center",
+    padding: 17,
   },
 });
 

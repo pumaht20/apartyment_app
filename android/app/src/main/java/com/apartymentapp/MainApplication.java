@@ -1,4 +1,5 @@
 package com.apartymentapp;
+import com.airbnb.android.react.maps.MapsPackage;
 
 import android.app.Application;
 import android.content.Context;

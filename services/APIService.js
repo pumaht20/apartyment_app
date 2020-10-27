@@ -61,6 +61,28 @@ export const APIGetTimeslotHostDetails = async (eventCode, hostGroup) => {
   return response;
 };
 
+export const APIJoinEvent = async (
+  userId,
+  userName,
+  userEmail,
+  userPhonenumber,
+  eventCode
+) => {
+  const response = await axios
+    .post(FIREBASE_ADDRESS + "join_event", {
+      user_id: userId,
+      user_name: userName,
+      user_email: userEmail,
+      user_phonenumber: userPhonenumber,
+      event_code: eventCode,
+    })
+    .then((res) => res)
+    .catch((err) => {
+      return err.response;
+    });
+  return response;
+};
+
 export const APIGetGroup = async () => {
   try {
     // let response = await axios.get(FIREBASE_ADDRESS + "get_event_groups");
