@@ -7,11 +7,16 @@ import {
   SafeAreaView,
   TextInput,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import { validateEmail } from "input-validators-js";
 import { AppLoading } from "expo";
 import Buildings from "../resources/svg/buildings.js";
-import { useFonts, Jost_600SemiBold } from "@expo-google-fonts/jost";
+import {
+  useFonts,
+  Jost_600SemiBold,
+  Jost_800ExtraBold,
+} from "@expo-google-fonts/jost";
 import { APILoginUser } from "../services/APIService";
 
 const Login = ({ navigation }) => {
@@ -19,6 +24,7 @@ const Login = ({ navigation }) => {
   const [passwordValue, onChangeTextPassword] = React.useState("");
   const [fontsLoaded] = useFonts({
     Jost_600SemiBold,
+    Jost_800ExtraBold,
   });
   const [emailBorderColor, setEmailBorderColor] = React.useState("#EFEFEF");
   const [emailTitle, setEmailTitle] = React.useState("Email");
@@ -136,11 +142,12 @@ const Login = ({ navigation }) => {
             value={passwordValue}
           />
           <View style={styles.buttonWrapper}>
-            <Button
-              title="Sign In"
-              color="#F72585"
+            <TouchableOpacity
+              style={styles.loginButton}
               onPress={() => handleLogin()}
-            />
+            >
+              <Text style={styles.loginButtonText}>Login</Text>
+            </TouchableOpacity>
           </View>
           <View
             style={styles.signUpView}
@@ -206,6 +213,21 @@ const styles = StyleSheet.create({
 
   signUpText: {
     color: "#F72585",
+  },
+
+  loginButton: {
+    alignSelf: "center",
+    backgroundColor: "#F72585",
+    width: 300,
+    borderRadius: 15,
+  },
+
+  loginButtonText: {
+    fontFamily: "Jost_800ExtraBold",
+    fontSize: 17,
+    color: "#fafafa",
+    textAlign: "center",
+    padding: 17,
   },
 });
 
