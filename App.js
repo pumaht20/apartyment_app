@@ -17,11 +17,7 @@ import Group from "./screens/Group";
 import GroupSchedule from "./screens/GroupSchedule";
 import TimeslotDetail from "./screens/TimeslotDetail";
 import JoinEvent from "./screens/JoinEvent";
-
-
-
-
-
+import JoinedEvent from "./screens/JoinedEvent";
 
 // https://reactnavigation.org/docs/stack-navigator/ for more
 // information on how StackNavigator works.
@@ -38,14 +34,16 @@ const App = () => {
         <Stack.Screen name="CreateEvent" component={CreateEvent} />
         <Stack.Screen name="JoinEvent" component={JoinEvent} />
         <Stack.Screen name="CreateGroup" component={CreateGroup} />
-        <Stack.Screen name="CreateEventConfirmation" component={CreateEventConfirmation} />
+        <Stack.Screen
+          name="CreateEventConfirmation"
+          component={CreateEventConfirmation}
+        />
         <Stack.Screen name="Event" component={Event} />
         <Stack.Screen name="EventsOverview" component={EventsOverview} />
         <Stack.Screen name="Group" component={Group} />
         <Stack.Screen name="GroupSchedule" component={GroupSchedule} />
         <Stack.Screen name="TimeslotDetail" component={TimeslotDetail} />
-
-
+        <Stack.Screen name="JoinedEvent" component={JoinedEvent} />
       </Stack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>

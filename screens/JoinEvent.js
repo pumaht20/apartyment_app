@@ -15,15 +15,37 @@ import {
   Jost_600SemiBold,
   Jost_300Light,
 } from "@expo-google-fonts/jost";
-
+import { useNavigation } from "@react-navigation/native";
+import { APIJoinEvent } from "../services/APIService";
 import Dancer from "../resources/svg/dancer.js";
 const JoinEvent = () => {
   const [pinValue, setPinValue] = React.useState("");
+  const [displayEventNotFound, setDisplayEventNotFound] = React.useState(
+    "none"
+  );
+  const navigation = useNavigation();
   const [fontsLoaded] = useFonts({
     Jost_600SemiBold,
     Jost_300Light,
   });
 
+  const joinEventHandler = () => {
+    const eventCode = pinValue.toUpperCase();
+    APIJoinEvent(
+      "NyLA1q5SdxEIM358dKPG",
+      "David Eriksson",
+      "davideriksson96@outlook.com",
+      "0707327184",
+      eventCode
+    ).then((res) => {
+      if (res.status === 200) {
+        navigation.navigate("JoinedEvent");
+      } else if (res.status === 404) {
+        setDisplayEventNotFound("flex");
+      }
+      console.log("RES JOIN: ", res);
+    });
+  };
   if (!fontsLoaded) {
     return <AppLoading />;
   }
@@ -42,7 +64,6 @@ const JoinEvent = () => {
           <SmoothPinCodeInput
             codeLength={5}
             cellStyle={{
-              border: "none",
               backgroundColor: "#EFEFEF",
               borderRadius: 10,
               height: 60,
@@ -60,10 +81,17 @@ const JoinEvent = () => {
             onTextChange={(pinValue) => setPinValue(pinValue)}
           />
         </View>
+        <View style={styles.eventNotFoundWrapper}>
+          <View style={{ display: displayEventNotFound }}>
+            <Text style={styles.eventNotFoundText}>
+              Event {pinValue.toUpperCase()} not found!
+            </Text>
+          </View>
+        </View>
         <View style={styles.submitJoinEventButton}>
           <TouchableOpacity
             style={styles.joinEventButton}
-            onPress={() => navigation.navigate("Event")}
+            onPress={() => joinEventHandler()}
           >
             <Text style={styles.joinEventButtonText}>Join event</Text>
           </TouchableOpacity>
@@ -86,12 +114,12 @@ const styles = StyleSheet.create({
   },
 
   imageView: {
-    marginTop: 25,
+    marginTop: 50,
     alignSelf: "center",
   },
 
   headerText: {
-    marginTop: 25,
+    marginTop: 50,
     marginLeft: 25,
     color: "#F72585",
     fontFamily: "Jost_600SemiBold",
@@ -135,6 +163,16 @@ const styles = StyleSheet.create({
     color: "#fafafa",
     textAlign: "center",
     padding: 17,
+  },
+
+  eventNotFoundWrapper: {
+    alignSelf: "center",
+  },
+
+  eventNotFoundText: {
+    fontFamily: "Jost_600SemiBold",
+    fontSize: 14,
+    color: "#FF3E3E",
   },
 });
 
