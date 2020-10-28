@@ -89,9 +89,9 @@ export const APIGetGroup = async () => {
     //  return response.data;
     return {
       group_name: "Group 1",
-      group_address: "Tvistevägen 1",
-      group_members: ["Alfred Persson", "Adam Bylund", "Dardan Dauti"],
-      group_description: "portkod 1234",
+      group_address: "Tvistevägen 9B",
+      group_members: ["Alfred Persson", "David Eriksson", "Vincent Odoemelam"],
+      group_description: "",
     };
   } catch (error) {
     console.error(error);
