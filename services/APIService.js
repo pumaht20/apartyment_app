@@ -100,14 +100,14 @@ export const APIGetEventGroups = async (eventCode) => {
 
 export const APIGetGroup = async () => {
   try {
-    // let response = await axios.get(FIREBASE_ADDRESS + "get_event_groups");
-    //  return response.data;
-    return {
-      group_name: "Group 1",
-      group_address: "Tvistevägen 9B",
-      group_members: ["Alfred Persson", "David Eriksson", "Vincent Odoemelam"],
-      group_description: "",
-    };
+    let response = await axios.get(FIREBASE_ADDRESS + "get_group_information", {
+      params: {
+        event_code: event_code,
+        group_id: group_id,
+      },
+    });
+    console.log(response.data);
+    return response.data;
   } catch (error) {
     console.error(error);
     return error.response;
@@ -133,12 +133,31 @@ export const APICreateGroup = async (
       group_address,
       event_code,
     });
-    console.log(response);
-    console.log("message: ");
-    console.log(response.message);
     return response.data;
   } catch (error) {
     console.log(error);
     return error.response;
   }
+};
+
+export const APIJoinGroup = async (
+  userId,
+  userName,
+  userEmail,
+  userPhonenumber,
+  eventCode
+) => {
+  const response = await axios
+    .post(FIREBASE_ADDRESS + "join_event", {
+      user_id: userId,
+      user_name: userName,
+      user_email: userEmail,
+      user_phonenumber: userPhonenumber,
+      event_code: eventCode,
+    })
+    .then((res) => res)
+    .catch((err) => {
+      return err.response;
+    });
+  return response;
 };

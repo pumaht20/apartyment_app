@@ -20,6 +20,7 @@ import { AppLoading } from "expo";
 import EventGroupCounter from "./counters/EventGroupCounter";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FontAwesome5, AntDesign, Entypo } from "@expo/vector-icons";
 
 const JoinedEvent = ({ route }) => {
@@ -35,12 +36,21 @@ const JoinedEvent = ({ route }) => {
     Clipboard.setString(eventCode);
   };
 
+  const storeEventCode = async (value) => {
+    try {
+      AsyncStorage.setItem("eventCode", value);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const getData = async () => {
     const raw = await APIGetEventGroups(eventCode);
     setGroups(raw.data.message);
   };
   useEffect(() => {
     getData();
+    //  storeEventCode(eventCode);
   }, []);
 
   if (!fontsLoaded) {
