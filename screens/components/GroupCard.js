@@ -11,8 +11,6 @@ import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 
 const GroupCard = (props) => {
-  console.log(props);
-
   const navigation = useNavigation();
   const [fontsLoaded] = useFonts({
     Jost_600SemiBold,

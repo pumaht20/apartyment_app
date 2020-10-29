@@ -12,6 +12,7 @@ import SmoothPinCodeInput from "react-native-smooth-pincode-input";
 import { AppLoading } from "expo";
 import {
   useFonts,
+  Jost_800ExtraBold,
   Jost_600SemiBold,
   Jost_300Light,
 } from "@expo-google-fonts/jost";
@@ -25,6 +26,7 @@ const JoinEvent = () => {
   );
   const navigation = useNavigation();
   const [fontsLoaded] = useFonts({
+    Jost_800ExtraBold,
     Jost_600SemiBold,
     Jost_300Light,
   });
