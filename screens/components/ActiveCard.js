@@ -5,12 +5,12 @@ import {
   Text,
   Button,
   View,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import {
   Ionicons,
   MaterialCommunityIcons,
-  FontAwesome5
+  FontAwesome5,
 } from "@expo/vector-icons";
 import { useFonts, Jost_600SemiBold } from "@expo-google-fonts/jost";
 import { useNavigation } from "@react-navigation/native";
@@ -20,12 +20,12 @@ import CampFireImg from "../../resources/images/campfire.png";
 const ActiveCard = () => {
   const navigation = useNavigation();
   const [fontsLoaded] = useFonts({
-    Jost_600SemiBold
+    Jost_600SemiBold,
   });
   return (
     <TouchableOpacity
       style={styles.cardContainer}
-      onPress={() => navigation.navigate("Events")}
+      onPress={() => navigation.navigate("Event")}
     >
       <ImageBackground
         source={CampFireImg}
@@ -70,90 +70,90 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.27,
     shadowRadius: 2.5,
-    marginVertical: 8
+    marginVertical: 8,
   },
   backgroundImage: {
     flex: 1,
     resizeMode: "cover",
-    borderRadius: 15
+    borderRadius: 15,
   },
   layoutContainer: {
     justifyContent: "space-between",
     flexDirection: "row",
     height: "100%",
     paddingHorizontal: 15,
-    paddingVertical: 10
+    paddingVertical: 10,
   },
   leftContainer: {
     justifyContent: "space-between",
-    height: "100%"
+    height: "100%",
   },
   eventTopContainer: {
     alignItems: "flex-start",
-    justifyContent: "flex-start"
+    justifyContent: "flex-start",
   },
   eventName: {
     fontFamily: "Jost_600SemiBold",
     fontSize: 25,
     fontWeight: "bold",
     color: "white",
-    paddingBottom: 2
+    paddingBottom: 2,
   },
   groupName: {
     fontFamily: "Jost_600SemiBold",
     fontSize: 18,
     color: "white",
-    paddingBottom: 2
+    paddingBottom: 2,
   },
   date: {
     fontFamily: "Jost_600SemiBold",
     fontSize: 18,
-    color: "white"
+    color: "white",
   },
   eventBottomContainer: {
     alignItems: "flex-end",
-    justifyContent: "flex-start"
+    justifyContent: "flex-start",
   },
   time: {
     fontFamily: "Jost_600SemiBold",
     fontSize: 20,
-    color: "white"
+    color: "white",
   },
   rightContainer: {
     height: "100%",
     alignItems: "flex-end",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   topConatiner: {
     alignItems: "flex-end",
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
   },
   hostName: {
     fontFamily: "Jost_600SemiBold",
     fontSize: 15,
     fontWeight: "bold",
-    color: "white"
+    color: "white",
   },
   middleConatiner: {
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
   },
   bottomConatiner: {
     flexDirection: "row",
     alignItems: "flex-end",
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
   },
   codeTxt: {
     fontFamily: "Jost_600SemiBold",
     fontSize: 20,
-    color: "white"
+    color: "white",
   },
   code: {
     fontFamily: "Jost_600SemiBold",
     fontSize: 20,
     fontWeight: "bold",
     color: "white",
-    marginLeft: 5
-  }
+    marginLeft: 5,
+  },
 });
 
 export default ActiveCard;

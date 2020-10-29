@@ -8,6 +8,7 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import { validateEmail } from "input-validators-js";
 import { AppLoading } from "expo";
@@ -35,10 +36,12 @@ const Login = ({ navigation }) => {
   const [passwordBorderColor, setPasswordBorderColor] = React.useState(
     "#EFEFEF"
   );
-
+  const [loading, setLoading] = React.useState(false);
   const handleLogin = () => {
+    setLoading(true);
     APILoginUser(emailValue, passwordValue).then((res) => {
       if (res.status === 200) {
+        setLoading(false);
         navigation.navigate("Hub");
       } else if (res.status === 401) {
         setPasswordBorderColor("#FF3E3E");
@@ -157,6 +160,20 @@ const Login = ({ navigation }) => {
           </View>
         </View>
       </ScrollView>
+      {loading && (
+        <View style={styles.loading}>
+          <ActivityIndicator
+            //visibility of Overlay Loading Spinner
+            visible={loading}
+            size="large"
+            animating={loading}
+            //Text with the Spinner
+            textContent={"Skickar in feedback..."}
+            //Text style of the Spinner Text
+            textStyle={{ color: "blue", opacity: "1.0" }}
+          />
+        </View>
+      )}
     </SafeAreaView>
   );
 };
@@ -228,6 +245,18 @@ const styles = StyleSheet.create({
     color: "#fafafa",
     textAlign: "center",
     padding: 17,
+  },
+  loading: {
+    position: "absolute",
+    alignItems: "center",
+    padding: 50,
+    justifyContent: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
+    borderColor: "black",
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
   },
 });
 

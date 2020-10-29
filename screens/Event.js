@@ -8,7 +8,7 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
-  Clipboard
+  Clipboard,
 } from "react-native";
 import { AntDesign, FontAwesome5, Entypo } from "@expo/vector-icons";
 import CampFireImg from "../resources/images/campfire.png";
@@ -54,64 +54,65 @@ const Event = () => {
 const styles = StyleSheet.create({
   safeAreaView: {
     height: "100%",
-    backgroundColor: "#FAFAFA"
+    backgroundColor: "#FAFAFA",
   },
   contentWapper: {
     paddingHorizontal: 30,
-    width: "100%"
+    width: "100%",
   },
   goBackArrowContainer: {
+    marginTop: 50,
     padding: 5,
     paddingBottom: 30,
-    flexDirection: "row"
+    flexDirection: "row",
   },
   goBackTxt: {
     fontSize: 20,
     fontWeight: "bold",
-    marginLeft: 15
+    marginLeft: 15,
   },
   imageContainer: {
     width: "100%",
     height: 180,
-    borderRadius: 15
+    borderRadius: 15,
   },
   image: {
     flex: 1,
     width: "100%",
     height: 180,
-    borderRadius: 15
+    borderRadius: 15,
   },
   eventNameContainer: {
     marginTop: 30,
     marginBottom: 10,
-    width: "80%"
+    width: "80%",
   },
   eventContainer: {
     marginTop: 10,
     marginBottom: 30,
-    width: "80%"
+    width: "80%",
   },
   eventName: {
     color: "#F72585",
     fontSize: 30,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   timeContainer: {
     flexDirection: "row",
     width: "100%",
     alignItems: "center",
-    marginBottom: 20
+    marginBottom: 20,
   },
   information: {
-    paddingLeft: 20
+    paddingLeft: 20,
   },
   dateContainer: {
     flexDirection: "row",
     width: "100%",
     alignItems: "center",
-    marginBottom: 30
+    marginBottom: 30,
   },
-  eventCodeContainer: {}
+  eventCodeContainer: {},
 });
 
 export default Event;
