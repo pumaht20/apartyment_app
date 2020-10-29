@@ -15,7 +15,10 @@ import {
   Jost_800ExtraBold,
 } from "@expo-google-fonts/jost";
 import Party from "../resources/svg/party";
-import { APIGetEventGroups } from "../services/APIService";
+import {
+  APIGetEventGroups,
+  APIGetEventInformation,
+} from "../services/APIService";
 import { AppLoading } from "expo";
 import EventGroupCounter from "./counters/EventGroupCounter";
 import { useNavigation } from "@react-navigation/native";
@@ -24,6 +27,8 @@ import { FontAwesome5, AntDesign, Entypo } from "@expo/vector-icons";
 
 const JoinedEvent = ({ route }) => {
   const [groups, setGroups] = React.useState([]);
+  const [eventInformation, setEventInformation] = React.useState({});
+  const navigation = useNavigation();
   const [fontsLoaded] = useFonts({
     Jost_600SemiBold,
     Jost_300Light,
@@ -36,8 +41,12 @@ const JoinedEvent = ({ route }) => {
   };
 
   const getData = async () => {
-    const raw = await APIGetEventGroups(eventCode);
-    setGroups(raw.data.message);
+    const rawGroups = await APIGetEventGroups(eventCode);
+    setGroups(rawGroups.data.message);
+
+    const rawEvent = await APIGetEventInformation(eventCode);
+    setEventInformation(rawEvent.data.message);
+    console.log("Raw data: ", rawEvent.data.message);
   };
   useEffect(() => {
     getData();
@@ -53,16 +62,21 @@ const JoinedEvent = ({ route }) => {
           <Party style={styles.imageView} />
         </View>
         <Text style={styles.headerText}>Event name</Text>
-        <Text style={styles.description}>Event description</Text>
+        <Text style={styles.description}>{eventInformation.description}</Text>
         <View style={styles.eventInformation}>
           <View style={styles.iconTextContainer}>
             <FontAwesome5 name="clock" size={24} color="#4CC9F0" />
-            <Text style={styles.informationText}>Time</Text>
+            <Text style={styles.informationText}>
+              {eventInformation.start_time_date.substring(11, 16)} -{" "}
+              {eventInformation.end_time_date.substring(11, 16)}
+            </Text>
           </View>
 
           <View style={styles.iconTextContainer}>
             <Entypo name="calendar" size={24} color="#4CC9F0" />
-            <Text style={styles.informationText}>Date</Text>
+            <Text style={styles.informationText}>
+              {eventInformation.start_time_date.substring(0, 9)}
+            </Text>
           </View>
         </View>
 
@@ -98,7 +112,10 @@ const JoinedEvent = ({ route }) => {
           >
             Groups
           </Text>
-          <TouchableOpacity style={{ marginRight: 45, marginTop: 45 }}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("CreateGroup")}
+            style={{ marginRight: 45, marginTop: 45 }}
+          >
             <Text
               style={{
                 fontFamily: "Jost_300Light",
