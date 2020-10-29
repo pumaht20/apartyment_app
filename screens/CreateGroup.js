@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,12 +8,13 @@ import {
   SafeAreaView,
 } from "react-native";
 import { AppLoading } from "expo";
+import { useNavigation } from "@react-navigation/native";
 import { useFonts, Jost_600SemiBold } from "@expo-google-fonts/jost";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { APICreateGroup } from "../services/APIService";
 
-const CreateGroup = () => {
+const CreateGroup = ({ route }) => {
   const navigation = useNavigation();
   const [groupName, setGroupName] = useState(null);
   const [address, setAddress] = useState(null);
@@ -22,6 +23,7 @@ const CreateGroup = () => {
     Jost_600SemiBold,
   });
 
+  const { eventCode } = route.params;
   if (!fontsLoaded) {
     return <AppLoading />;
   }
@@ -42,6 +44,7 @@ const CreateGroup = () => {
   const getUserInfo = async () => {
     try {
       const userInfo = await AsyncStorage.getItem("userInfo");
+      console.log("userInfo: ", userInfo);
       const parsedData = userInfo != null ? JSON.parse(userInfo) : null;
       if (!parsedData) navigation.navigate("Login");
       return parsedData;
@@ -86,7 +89,7 @@ const CreateGroup = () => {
               userInfo.user_email,
               groupName,
               address,
-              async () => await AsyncStorage.getItem("eventCode")
+              eventCode
             ).then(navigation.goBack());
           }}
         >
