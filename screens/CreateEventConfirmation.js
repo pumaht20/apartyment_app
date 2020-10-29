@@ -8,14 +8,14 @@ import {
   SafeAreaView,
   Platform,
   Clipboard,
-  Image
+  Image,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import {
   useFonts,
   Jost_800ExtraBold,
-  Jost_500Medium
+  Jost_500Medium,
 } from "@expo-google-fonts/jost";
 import Goal from "../resources/svg/goal.js";
 import { AppLoading } from "expo";
@@ -26,7 +26,7 @@ const CreateEventInformation = ({ navigation }) => {
 
   const [fontsLoaded] = useFonts({
     Jost_800ExtraBold,
-    Jost_500Medium
+    Jost_500Medium,
   });
 
   if (!fontsLoaded) {
@@ -49,8 +49,10 @@ const CreateEventInformation = ({ navigation }) => {
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
               >
-                <AntDesign name="copy1" size={24} color="#fafafa" />
-                <Text style={styles.copyButtonText}>Copy</Text>
+                <View style={styles.copyButtonContent}>
+                  <AntDesign name="copy1" size={24} color="#fafafa" />
+                  <Text style={styles.copyButtonText}>Copy</Text>
+                </View>
               </LinearGradient>
             </TouchableOpacity>
           </View>
@@ -69,7 +71,7 @@ const styles = StyleSheet.create({
   createEventWrapper: {
     backgroundColor: "#fafafa",
     flex: 1,
-    alignItems: "center"
+    alignItems: "center",
   },
 
   h1: {
@@ -79,7 +81,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     textAlign: "center",
     marginTop: 100,
-    fontFamily: "Jost_800ExtraBold"
+    fontFamily: "Jost_800ExtraBold",
   },
 
   p: {
@@ -88,39 +90,39 @@ const styles = StyleSheet.create({
     marginRight: 50,
     marginLeft: 50,
     fontFamily: "Jost_500Medium",
-    marginTop: 25
+    marginTop: 25,
   },
 
   hej: {
+    marginTop: 50,
+    marginLeft: 100,
     flex: 1,
     flexDirection: "row",
     height: 50,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
 
   eventCodeContainer: {
     height: 50,
-    padding: 50
+    padding: 50,
   },
 
   eventCodeText: {
     fontSize: 40,
     marginRight: 20,
     color: "#4CC9F0",
-    fontFamily: "Jost_800ExtraBold"
+    fontFamily: "Jost_800ExtraBold",
   },
 
   copyButton: {
-    backgroundColor: "#4CC9F0",
-    borderRadius: 13,
-    flex: 1,
+    alignSelf: "center",
+    marginRight: 150,
     flexDirection: "row",
+    height: 55,
+    width: 110,
+    borderRadius: 10,
     justifyContent: "center",
-    paddingTop: 12,
-    paddingBottom: 10,
-    width: 150,
-    height: 50
   },
 
   copyButtonText: {
@@ -129,14 +131,14 @@ const styles = StyleSheet.create({
     fontFamily: "Jost_800ExtraBold",
     fontSize: 17,
     paddingTop: 1,
-    paddingLeft: 5
+    paddingLeft: 5,
   },
 
   viewEventButton: {
     backgroundColor: "#F72585",
     width: 200,
     borderRadius: 15,
-    marginTop: 190
+    marginTop: 250,
   },
 
   viewEventButtonText: {
@@ -144,8 +146,18 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: "#fafafa",
     textAlign: "center",
-    padding: 17
-  }
+    padding: 17,
+  },
+  copyButtonContent: {
+    alignSelf: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  copyButtonText: {
+    color: "#fafafa",
+    fontFamily: "Jost_800ExtraBold",
+    fontSize: 17,
+  },
 });
 
 export default CreateEventInformation;

@@ -69,7 +69,6 @@ const Group = ({ navigation }) => {
           style={styles.buttonWrapper}
           onPress={() => {
             //Add data
-            POST_REQUEST_create_group().then(navigation.navigate("Hub"));
           }}
         >
           <Text style={styles.buttonText}>Join group</Text>

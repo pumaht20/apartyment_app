@@ -83,15 +83,30 @@ export const APIJoinEvent = async (
   return response;
 };
 
+
+export const APIGetEventGroups = async (eventCode) => {
+  const response = await axios
+    .get(FIREBASE_ADDRESS + "get_event_groups", {
+      params: {
+        event_code: eventCode,
+      },
+    })
+    .then((res) => res)
+    .catch((err) => {
+      return err.response;
+    });
+  return response;
+}
+
 export const APIGetGroup = async () => {
   try {
     // let response = await axios.get(FIREBASE_ADDRESS + "get_event_groups");
     //  return response.data;
     return {
       group_name: "Group 1",
-      group_address: "Tvistevägen 1",
-      group_members: ["Alfred Persson", "Adam Bylund", "Dardan Dauti"],
-      group_description: "portkod 1234",
+      group_address: "Tvistevägen 9B",
+      group_members: ["Alfred Persson", "David Eriksson", "Vincent Odoemelam"],
+      group_description: "",
     };
   } catch (error) {
     console.error(error);

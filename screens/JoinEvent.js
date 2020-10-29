@@ -39,11 +39,10 @@ const JoinEvent = () => {
       eventCode
     ).then((res) => {
       if (res.status === 200) {
-        navigation.navigate("JoinedEvent");
+        navigation.navigate("JoinedEvent", { eventCode: eventCode });
       } else if (res.status === 404) {
         setDisplayEventNotFound("flex");
       }
-      console.log("RES JOIN: ", res);
     });
   };
   if (!fontsLoaded) {

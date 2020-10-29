@@ -20,7 +20,7 @@ import ScheduleCounter from "./counters/ScheduleCounter";
 const GroupSchedule = ({ navigation }) => {
   const [timeslots, setTimeslots] = React.useState([]);
   const getData = async () => {
-    const raw = await APIGetGroupSchedule("RJQNB", "Grupp 1");
+    const raw = await APIGetGroupSchedule("RJQNB", "Grupp 2");
     setTimeslots(
       raw.data.message.sort((a, b) => a.begins.localeCompare(b.begins))
     );
@@ -40,7 +40,7 @@ const GroupSchedule = ({ navigation }) => {
     <SafeAreaView style={styles.groupScheduleSafe}>
       <View style={styles.groupScheduleScroll}>
         <Text style={styles.headerText}>Schedule</Text>
-        <Text style={styles.subHeader}>Schedule for "Gruppnamn"</Text>
+        <Text style={styles.subHeader}>Schedule for Group 1</Text>
         <ScrollView style={styles.scheduleView}>
           <ScheduleCounter props={timeslots} />
         </ScrollView>
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
 
   headerText: {
-    marginTop: 25,
+    marginTop: 50,
     marginLeft: 25,
     color: "#F72585",
     fontFamily: "Jost_600SemiBold",
