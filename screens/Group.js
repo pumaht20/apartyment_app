@@ -14,35 +14,62 @@ import {
   Jost_400Regular,
 } from "@expo-google-fonts/jost";
 import { FontAwesome } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { APIGetGroup } from "../services/APIService";
+import { APIGetGroup, APIJoinGroup } from "../services/APIService";
+import { useNavigation } from "@react-navigation/native";
 
-const Group = ({ navigation }) => {
+const Group = (props) => {
+  const { group_id } = props;
+  const navigation = useNavigation();
   const [groupName, setGroupName] = useState("");
   const [members, setMembers] = useState([]);
   const [address, setAddress] = useState("");
-  const [description, setDescription] = useState("");
+  const [userInfo, setUserInfo] = useState({});
+  const [eventCode, setEventCode] = useState("");
   const [fontsLoaded] = useFonts({
     Jost_600SemiBold,
     Jost_400Regular,
   });
 
   const getGroup = async () => {
-    const {
-      group_name,
-      group_address,
-      group_members,
-      group_description,
-    } = await APIGetGroup();
+    const { group_name, group_address, group_members } = await APIGetGroup(
+      eventCode,
+      group_id
+    );
     setGroupName(group_name);
     setMembers(group_members);
     setAddress(group_address);
-    setDescription(group_description);
+  };
+
+  const getUserInfo = async () => {
+    try {
+      const raw = await AsyncStorage.getItem("userInfo");
+      const userInfo = raw != null ? JSON.parse(raw) : null;
+      setUserInfo(userInfo);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const getEventCode = async () => {
+    try {
+      const raw = await AsyncStorage.getItem("eventCode");
+      const eventCode = raw != null ? JSON.parse(raw) : null;
+      setEventCode(eventCode);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
-    getGroup();
+    getEventCode();
   }, []);
+
+  useEffect(() => {
+    getGroup();
+    getUserInfo();
+  }, [eventCode]);
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -67,9 +94,17 @@ const Group = ({ navigation }) => {
       <View style={styles.bottom}>
         <TouchableOpacity
           style={styles.buttonWrapper}
-          onPress={() => {
-            //Add data
-          }}
+          onPress={() =>
+            APIJoinGroup(
+              userInfo.user_id,
+              userInfo.user_name,
+              userInfo.user_phonenumber,
+              userInfo.user_email,
+              groupName,
+              address,
+              eventCode
+            ).then(navigation.goBack())
+          }
         >
           <Text style={styles.buttonText}>Join group</Text>
         </TouchableOpacity>
