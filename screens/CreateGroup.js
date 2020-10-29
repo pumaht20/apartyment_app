@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
-  Button,
   View,
   TextInput,
   TouchableHighlight,
@@ -14,10 +13,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { APICreateGroup } from "../services/APIService";
 
-const CreateGroup = ({ navigation, eventCode }) => {
+const CreateGroup = () => {
+  const navigation = useNavigation();
   const [groupName, setGroupName] = useState(null);
   const [address, setAddress] = useState(null);
   const [description, setDescription] = useState(null);
+  const [eventCode, setEventCode] = useState("");
   const [fontsLoaded] = useFonts({
     Jost_600SemiBold,
   });
@@ -26,12 +27,25 @@ const CreateGroup = ({ navigation, eventCode }) => {
     return <AppLoading />;
   }
 
+  useEffect(() => {
+    getEventCode();
+  }, []);
+
+  const getEventCode = async () => {
+    try {
+      const raw = await AsyncStorage.getItem("eventCode");
+      const code = raw != null ? JSON.parse(raw) : null;
+      setEventCode(code);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const getUserInfo = async () => {
     try {
       const userInfo = await AsyncStorage.getItem("userInfo");
       const parsedData = userInfo != null ? JSON.parse(userInfo) : null;
       if (!parsedData) navigation.navigate("Login");
-      console.log("parsedData: ", parsedData);
       return parsedData;
     } catch (e) {
       console.log(e);
@@ -74,8 +88,8 @@ const CreateGroup = ({ navigation, eventCode }) => {
               userInfo.user_email,
               groupName,
               address,
-              "WWAMW"
-            ).then(navigation.navigate("Hub"));
+              eventCode
+            ).then(navigation.goBack());
           }}
         >
           <Text style={styles.buttonText}>Create group</Text>
