@@ -14,7 +14,6 @@ const ScheduleCard = (props) => {
   const [fontsLoaded] = useFonts({
     Jost_600SemiBold,
   });
-
   if (!fontsLoaded) {
     return <AppLoading />;
   }

@@ -6,7 +6,7 @@ import {
   Button,
   View,
   SafeAreaView,
-  ScrollView
+  ScrollView,
 } from "react-native";
 
 import { AntDesign, Ionicons } from "@expo/vector-icons";
@@ -22,15 +22,15 @@ const EventsOverview = () => {
       type: "ion-icon",
       eventName: "Tour de drink",
       code: "ANP2C",
-      date: "29 October 2020"
+      date: "29 October 2020",
     },
     {
       iconName: "globe-americas",
       type: "FontAwesome5",
       eventName: "Around the world",
       code: "P82KC",
-      date: "5 November 2020"
-    }
+      date: "5 November 2020",
+    },
   ];
 
   const oldEvents = [
@@ -39,22 +39,22 @@ const EventsOverview = () => {
       type: "Material-Community-icons",
       eventName: "Partyball 3000",
       code: "",
-      date: "24 August 2020"
+      date: "24 August 2020",
     },
     {
       iconName: "ios-bicycle",
       type: "ion-icon",
       eventName: "Tour de drink",
       code: "",
-      date: "24 October 2019"
+      date: "24 October 2019",
     },
     {
       iconName: "globe-americas",
       type: "FontAwesome5",
       eventName: "Tour de drink",
       code: "",
-      date: "9 November 2019"
-    }
+      date: "9 November 2019",
+    },
   ];
 
   return (
@@ -63,7 +63,7 @@ const EventsOverview = () => {
         <View style={styles.contentWapper}>
           <View style={styles.goBackArrowContainer}>
             <AntDesign name="left" size={24} color="black" />
-            <Text style={styles.goBackTxt}>Start</Text>
+            <Text style={styles.goBackTxt}></Text>
           </View>
           <View style={styles.activeEventContainer}>
             <Text style={styles.title}>Active event</Text>
@@ -91,29 +91,30 @@ const EventsOverview = () => {
 const styles = StyleSheet.create({
   safeAreaView: {
     height: "100%",
-    backgroundColor: "#FAFAFA"
+    backgroundColor: "#FAFAFA",
   },
   contentWapper: {
-    paddingHorizontal: 30
+    paddingHorizontal: 30,
   },
   goBackArrowContainer: {
+    marginTop: 50,
     padding: 5,
     paddingBottom: 30,
-    flexDirection: "row"
+    flexDirection: "row",
   },
   goBackTxt: {
     fontSize: 20,
     fontWeight: "bold",
-    marginLeft: 15
+    marginLeft: 15,
   },
   activeEventContainer: {},
   title: {
     fontSize: 22,
     fontWeight: "bold",
-    paddingVertical: 15
+    paddingVertical: 15,
   },
   upcomingEventsContainer: {},
-  oldEventsContainer: {}
+  oldEventsContainer: {},
 });
 
 export default EventsOverview;

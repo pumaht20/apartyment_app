@@ -18,11 +18,13 @@ const TimeslotDetail = ({ route }) => {
   const [hostData, setHostData] = React.useState({});
   const getData = async () => {
     const raw = await APIGetTimeslotHostDetails("RJQNB", host);
+    console.log(raw.data);
     setHostData(raw.data.message);
   };
 
   useEffect(() => {
     getData();
+    console.log(hostData);
   }, []);
 
   if (!fontsLoaded) {
@@ -39,7 +41,7 @@ const TimeslotDetail = ({ route }) => {
         <View style={styles.contactInformationWrapper}>
           <View style={styles.iconTextContainer}>
             <FontAwesome5 name="clock" size={24} color="#4CC9F0" />
-            <Text style={styles.contactText}>{hostData.user_phonenumber}</Text>
+            <Text style={styles.contactText}>070 732 71 84</Text>
           </View>
           <View style={styles.iconTextContainer}>
             <FontAwesome name="phone" size={24} color="#4CC9F0" />
@@ -49,7 +51,7 @@ const TimeslotDetail = ({ route }) => {
           </View>
           <View style={styles.iconTextContainer}>
             <Entypo name="location" size={24} color="#4CC9F0" />
-            <Text style={styles.contactText}>{hostData.group_address}</Text>
+            <Text style={styles.contactText}>Tvistevägen 11b</Text>
           </View>
         </View>
       </View>
@@ -70,7 +72,7 @@ const styles = StyleSheet.create({
   },
 
   headerText: {
-    marginTop: 25,
+    marginTop: 50,
     marginLeft: 25,
     color: "#F72585",
     fontFamily: "Jost_600SemiBold",

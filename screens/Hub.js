@@ -34,7 +34,7 @@ const Hub = ({ navigation }) => {
         <View style={styles.createEventButtonWrapper}>
           <TouchableOpacity
             style={styles.hubButton}
-            onPress={() => navigation.navigate("Event")}
+            onPress={() => navigation.navigate("CreateEvent")}
           >
             <Text style={styles.hubButtonText}>Create event</Text>
           </TouchableOpacity>
@@ -50,7 +50,7 @@ const Hub = ({ navigation }) => {
         <View style={styles.eventsButtonWrapper}>
           <TouchableOpacity
             style={styles.hubButton}
-            onPress={() => navigation.navigate("Event")}
+            onPress={() => navigation.navigate("EventsOverview")}
           >
             <Text style={styles.hubButtonText}>Event</Text>
           </TouchableOpacity>
