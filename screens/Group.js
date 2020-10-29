@@ -20,10 +20,10 @@ import { APIGetGroup, APIJoinGroup } from "../services/APIService";
 import { useNavigation } from "@react-navigation/native";
 
 const Group = (props) => {
-  const { group_id } = props;
+  const { groupId } = props;
   const navigation = useNavigation();
   const [groupName, setGroupName] = useState("");
-  const [members, setMembers] = useState([]);
+  const [membersState, setMembers] = useState([]);
   const [address, setAddress] = useState("");
   const [userInfo, setUserInfo] = useState({});
   const [eventCode, setEventCode] = useState("");
@@ -33,12 +33,12 @@ const Group = (props) => {
   });
 
   const getGroup = async () => {
-    const { group_name, group_address, group_members } = await APIGetGroup(
+    const { group_name, group_address, members } = await APIGetGroup(
       eventCode,
-      group_id
+      groupId
     );
     setGroupName(group_name);
-    setMembers(group_members);
+    setMembers(members ? members : []);
     setAddress(group_address);
   };
 
@@ -54,9 +54,8 @@ const Group = (props) => {
 
   const getEventCode = async () => {
     try {
-      const raw = await AsyncStorage.getItem("eventCode");
-      const eventCode = raw != null ? JSON.parse(raw) : null;
-      setEventCode(eventCode);
+      const code = await AsyncStorage.getItem("eventCode");
+      setEventCode(code);
     } catch (e) {
       console.log(e);
     }
@@ -79,7 +78,7 @@ const Group = (props) => {
       <Text style={styles.viewTitle}>{groupName}</Text>
       <FontAwesome name="user" size={24} color="#4CC9F0" style={styles.icon} />
       <Text style={styles.textContent}>
-        {members.map((member) => member + "\n")}
+        {membersState.map((member) => member + "\n")}
       </Text>
 
       <FontAwesome
@@ -90,7 +89,6 @@ const Group = (props) => {
       />
       <Text style={styles.textContent}>{address}</Text>
 
-      <Text style={styles.textContent}>{description}</Text>
       <View style={styles.bottom}>
         <TouchableOpacity
           style={styles.buttonWrapper}

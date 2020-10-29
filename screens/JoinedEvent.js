@@ -55,11 +55,10 @@ const JoinedEvent = ({ route }) => {
 
     const rawEvent = await APIGetEventInformation(eventCode);
     setEventInformation(rawEvent.data.message);
-    console.log("Raw data: ", rawEvent.data.message);
   };
   useEffect(() => {
     getData();
-    //  storeEventCode(eventCode);
+    storeEventCode(eventCode);
   }, []);
 
   if (!fontsLoaded) {
@@ -76,17 +75,12 @@ const JoinedEvent = ({ route }) => {
         <View style={styles.eventInformation}>
           <View style={styles.iconTextContainer}>
             <FontAwesome5 name="clock" size={24} color="#4CC9F0" />
-            <Text style={styles.informationText}>
-              {eventInformation.start_time_date.substring(11, 16)} -{" "}
-              {eventInformation.end_time_date.substring(11, 16)}
-            </Text>
+            <Text style={styles.informationText}></Text>
           </View>
 
           <View style={styles.iconTextContainer}>
             <Entypo name="calendar" size={24} color="#4CC9F0" />
-            <Text style={styles.informationText}>
-              {eventInformation.start_time_date.substring(0, 9)}
-            </Text>
+            <Text style={styles.informationText}></Text>
           </View>
         </View>
 
@@ -123,7 +117,7 @@ const JoinedEvent = ({ route }) => {
             Groups
           </Text>
           <TouchableOpacity
-            onPress={() => navigation.navigate("CreateGroup")}
+            onPress={() => navigation.navigate("CreateGroup", { eventCode })}
             style={{ marginRight: 45, marginTop: 45 }}
           >
             <Text

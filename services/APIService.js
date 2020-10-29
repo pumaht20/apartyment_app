@@ -97,15 +97,15 @@ export const APIGetEventGroups = async (eventCode) => {
   return response;
 };
 
-export const APIGetGroup = async () => {
+export const APIGetGroup = async (eventCode, groupId) => {
   try {
     let response = await axios.get(FIREBASE_ADDRESS + "get_group_information", {
       params: {
-        event_code: event_code,
-        group_id: group_id,
+        event_code: eventCode,
+        group_id: groupId,
       },
     });
-    console.log(response.data);
+    console.log("Data: ", response.data);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -132,6 +132,7 @@ export const APICreateGroup = async (
       group_address,
       event_code,
     });
+    console.log("RESPONSE: ", response.data);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -153,16 +154,13 @@ export const APIJoinGroup = async (
       user_email: userEmail,
       user_phonenumber: userPhonenumber,
       event_code: eventCode,
-
     })
     .then((res) => res)
     .catch((err) => {
       return err.response;
     });
   return response;
-
 };
-
 
 export const APIGetEventInformation = async (eventCode) => {
   const response = await axios
