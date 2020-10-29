@@ -19,6 +19,7 @@ import {
   Jost_800ExtraBold,
 } from "@expo-google-fonts/jost";
 import { APILoginUser } from "../services/APIService";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login = ({ navigation }) => {
   const [emailValue, onChangeTextEmail] = React.useState("");
@@ -36,13 +37,30 @@ const Login = ({ navigation }) => {
   const [passwordBorderColor, setPasswordBorderColor] = React.useState(
     "#EFEFEF"
   );
+
   const [loading, setLoading] = React.useState(false);
+
+  const storeUserData = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      AsyncStorage.setItem("userInfo", jsonValue).then((res) => {
+        navigation.navigate("Hub");
+      });
+    } catch (e) {
+      // saving error
+    }
+  };
+
+
   const handleLogin = () => {
     setLoading(true);
     APILoginUser(emailValue, passwordValue).then((res) => {
       if (res.status === 200) {
+
         setLoading(false);
         navigation.navigate("Hub");
+        storeUserData(res.data.message);
+
       } else if (res.status === 401) {
         setPasswordBorderColor("#FF3E3E");
         setPasswordTitleColor("#FF3E3E");

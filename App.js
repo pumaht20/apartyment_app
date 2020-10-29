@@ -35,13 +35,12 @@ const App = () => {
         <Stack.Screen name="CreateEvent" component={CreateEvent} />
         <Stack.Screen name="JoinEvent" component={JoinEvent} />
         <Stack.Screen name="CreateGroup" component={CreateGroup} />
+        <Stack.Screen name="Group" component={Group} />
         <Stack.Screen
           name="CreateEventConfirmation"
           component={CreateEventConfirmation}
         />
         <Stack.Screen name="Event" component={Event} />
-        <Stack.Screen name="EventsOverview" component={EventsOverview} />
-        <Stack.Screen name="Group" component={Group} />
         <Stack.Screen name="GroupSchedule" component={GroupSchedule} />
         <Stack.Screen name="TimeslotDetail" component={TimeslotDetail} />
         <Stack.Screen name="JoinedEvent" component={JoinedEvent} />

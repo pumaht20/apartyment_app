@@ -83,6 +83,7 @@ export const APIJoinEvent = async (
   return response;
 };
 
+
 export const APIGetEventGroups = async (eventCode) => {
   const response = await axios
     .get(FIREBASE_ADDRESS + "get_event_groups", {
@@ -95,4 +96,49 @@ export const APIGetEventGroups = async (eventCode) => {
       return err.response;
     });
   return response;
+}
+
+export const APIGetGroup = async () => {
+  try {
+    // let response = await axios.get(FIREBASE_ADDRESS + "get_event_groups");
+    //  return response.data;
+    return {
+      group_name: "Group 1",
+      group_address: "Tvistevägen 9B",
+      group_members: ["Alfred Persson", "David Eriksson", "Vincent Odoemelam"],
+      group_description: "",
+    };
+  } catch (error) {
+    console.error(error);
+    return error.response;
+  }
+};
+
+export const APICreateGroup = async (
+  user_id,
+  user_name,
+  user_phonenumber,
+  user_email,
+  group_name,
+  group_address,
+  event_code
+) => {
+  try {
+    const response = await axios.post(FIREBASE_ADDRESS + "create_group", {
+      user_id,
+      user_name,
+      user_phonenumber,
+      user_email,
+      group_name,
+      group_address,
+      event_code,
+    });
+    console.log(response);
+    console.log("message: ");
+    console.log(response.message);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return error.response;
+  }
 };

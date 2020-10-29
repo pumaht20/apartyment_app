@@ -93,6 +93,15 @@ const mapStyle = [
     ]
   },
   {
+    "featureType": "road",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "color": "#f72585"
+      }
+    ]
+  },
+  {
     "featureType": "road.arterial",
     "elementType": "labels.text.fill",
     "stylers": [
@@ -192,8 +201,8 @@ const styles = StyleSheet.create({
    }); 
 
 const Maps = () => {   
-  const [lat, setLat]= useState(null)
-  const [long, setLong]= useState(null)
+  const [lat, setLat]= useState(0)
+  const [long, setLong]= useState(0)
 
 
   useEffect(()=>{
@@ -208,6 +217,7 @@ const Maps = () => {
       <MapView
         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
         style={styles.map}
+        showsUserLocation={true}
         customMapStyle= {mapStyle}
         region={{
           latitude: lat,
@@ -218,8 +228,8 @@ const Maps = () => {
       >
         <Marker
     coordinate={{
-      latitude: 37.78825,
-      longitude: -122.4324,
+      latitude: 63.820205,
+      longitude: 20.305522,
     }}
     >
     </Marker>

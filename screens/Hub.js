@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import Buildings from "../resources/svg/buildings.js";
 import {
   useFonts,
