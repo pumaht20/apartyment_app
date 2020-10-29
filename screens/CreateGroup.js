@@ -18,7 +18,6 @@ const CreateGroup = () => {
   const [groupName, setGroupName] = useState(null);
   const [address, setAddress] = useState(null);
   const [description, setDescription] = useState(null);
-  const [eventCode, setEventCode] = useState("");
   const [fontsLoaded] = useFonts({
     Jost_600SemiBold,
   });
@@ -27,20 +26,19 @@ const CreateGroup = () => {
     return <AppLoading />;
   }
 
-  useEffect(() => {
+  /*   useEffect(() => {
     getEventCode();
   }, []);
 
   const getEventCode = async () => {
     try {
-      const raw = await AsyncStorage.getItem("eventCode");
-      const code = raw != null ? JSON.parse(raw) : null;
+      const code = await AsyncStorage.getItem("eventCode");
       setEventCode(code);
     } catch (e) {
       console.log(e);
     }
   };
-
+ */
   const getUserInfo = async () => {
     try {
       const userInfo = await AsyncStorage.getItem("userInfo");
@@ -88,7 +86,7 @@ const CreateGroup = () => {
               userInfo.user_email,
               groupName,
               address,
-              eventCode
+              async () => await AsyncStorage.getItem("eventCode")
             ).then(navigation.goBack());
           }}
         >
